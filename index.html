@@ -1,0 +1,1042 @@
+<title>Your HVAC Company — Your Comfort, Our Expertise</title>
+
+<style>
+/* ── Tokens (dark-first) ───────────────────────────────── */
+:root {
+  --bg-base:    #141414;
+  --bg-surface: #252525;
+  --bg-deep:    #0D0D0D;
+  --bg-light:   #F3F3F1;
+  --on-dark:    #FFFFFF;
+  --on-dark-2:  rgba(255,255,255,.62);
+  --on-light:   #191919;
+  --on-light-2: #565656;
+  --accent:     #C41230;
+  --accent-h:   #A30E26;
+  --border-dk:  rgba(255,255,255,.07);
+  --border-lt:  rgba(0,0,0,.1);
+  --nav-h:      76px;
+  --sp-sec:     clamp(4rem, 8vw, 7rem);
+  --r:          1px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-base:    #F3F3F1;
+    --bg-surface: #E7E7E5;
+    --bg-deep:    #DCDCD9;
+    --bg-light:   #FFFFFF;
+    --on-dark:    #191919;
+    --on-dark-2:  rgba(0,0,0,.58);
+    --border-dk:  rgba(0,0,0,.08);
+  }
+}
+:root[data-theme="dark"] {
+  --bg-base:    #141414;
+  --bg-surface: #252525;
+  --bg-deep:    #0D0D0D;
+  --bg-light:   #F3F3F1;
+  --on-dark:    #FFFFFF;
+  --on-dark-2:  rgba(255,255,255,.62);
+  --border-dk:  rgba(255,255,255,.07);
+}
+:root[data-theme="light"] {
+  --bg-base:    #F3F3F1;
+  --bg-surface: #E7E7E5;
+  --bg-deep:    #DCDCD9;
+  --bg-light:   #FFFFFF;
+  --on-dark:    #191919;
+  --on-dark-2:  rgba(0,0,0,.58);
+  --border-dk:  rgba(0,0,0,.08);
+}
+
+/* ── Reset ─────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size:.9375rem;
+  background:var(--bg-base);
+  color:var(--on-dark);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+
+/* ── Layout helpers ─────────────────────────────────────── */
+.wrap{max-width:1200px;margin:0 auto;padding:0 2rem}
+
+/* ── Buttons ────────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.82rem 1.9rem;
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  border:none;border-radius:var(--r);cursor:pointer;
+  transition:background .2s,transform .15s;white-space:nowrap;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:none}
+.btn-red{background:var(--accent);color:#fff}
+.btn-red:hover{background:var(--accent-h)}
+.btn-dim{background:#3C3C3C;color:#fff}
+.btn-dim:hover{background:#484848}
+
+/* ═══════════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════════ */
+.site-header{
+  position:fixed;inset:0 0 auto;z-index:200;
+  height:var(--nav-h);
+  background:rgba(10,10,10,.94);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border-dk);
+}
+.header-row{
+  display:flex;align-items:center;justify-content:space-between;
+  height:100%;
+}
+
+.logo-placeholder{
+  width:170px;height:58px;
+  border:1.5px dashed rgba(255,255,255,.26);border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.32);
+}
+
+.main-nav{display:flex;align-items:center;gap:.1rem}
+.main-nav a{
+  padding:.5rem .9rem;
+  font-size:.73rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);
+  transition:color .18s;
+}
+.main-nav a:hover,
+.main-nav a.active{color:var(--accent)}
+.main-nav .nav-cta{
+  margin-left:.625rem;padding:.58rem 1.2rem;
+  background:var(--accent);color:#fff;border-radius:var(--r);
+  transition:background .18s;
+}
+.main-nav .nav-cta:hover{background:var(--accent-h);color:#fff}
+
+.burger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:5px 2px;
+}
+.burger span{
+  display:block;width:22px;height:2px;background:#fff;
+  border-radius:1px;transition:.28s;
+}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ═══════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════ */
+.hero{
+  position:relative;height:100vh;min-height:560px;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  overflow:hidden;
+}
+#hero-canvas{
+  position:absolute;inset:0;width:100%;height:100%;
+  /* Replace with <img> or CSS background-image when you have a real photo:
+     background:url('your-hvac-photo.jpg') center/cover no-repeat;
+     Then remove the canvas element. */
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 60%,rgba(8,8,8,.72) 0%,rgba(5,5,5,.88) 100%);
+}
+.hero-content{
+  position:relative;z-index:2;
+  max-width:740px;padding:0 1.5rem;
+  padding-top:var(--nav-h);
+}
+.hero h1{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:clamp(2.75rem,6.5vw,5rem);
+  font-weight:900;line-height:1.06;
+  color:#fff;text-wrap:balance;
+  margin-bottom:1.25rem;
+  text-shadow:0 2px 28px rgba(0,0,0,.55);
+}
+.hero-sub{
+  font-size:.9375rem;color:rgba(255,255,255,.76);
+  line-height:1.55;margin-bottom:2.5rem;
+  text-shadow:0 1px 10px rgba(0,0,0,.5);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SERVICES
+═══════════════════════════════════════════════════════ */
+.services-section{background:var(--bg-surface)}
+
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+}
+
+.svc-card{
+  border-top:5px solid var(--accent);
+  padding:2.5rem 1.5rem 2rem;
+  display:flex;flex-direction:column;gap:.875rem;
+  border-right:1px solid rgba(255,255,255,.055);
+  background:var(--bg-surface);
+  transition:background .2s;
+}
+.svc-card:last-child{border-right:none}
+.svc-card:hover{background:rgba(255,255,255,.038)}
+
+.svc-icon{width:56px;height:56px;color:var(--accent)}
+
+.svc-name{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:.82rem;font-weight:900;letter-spacing:.04em;
+  text-transform:uppercase;line-height:1.35;
+  color:var(--on-dark);
+}
+
+.svc-desc{
+  font-size:.86rem;color:var(--on-dark-2);
+  line-height:1.72;flex:1;
+}
+
+.svc-more{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-size:.84rem;font-weight:700;color:var(--on-dark);
+  transition:color .18s,gap .18s;margin-top:.2rem;
+}
+.svc-more:hover{color:var(--accent);gap:.7rem}
+
+/* ═══════════════════════════════════════════════════════
+   ABOUT
+═══════════════════════════════════════════════════════ */
+.about-section{
+  background:var(--bg-light);
+  padding:var(--sp-sec) 0;
+}
+
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;
+}
+
+.about-eyebrow{
+  font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.75rem;
+}
+
+.about-h2{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:clamp(1.75rem,3.5vw,2.75rem);
+  font-weight:900;line-height:1.14;
+  color:var(--on-light);text-wrap:balance;
+  margin-bottom:1.5rem;
+}
+
+.about-copy p{
+  font-size:.9375rem;color:var(--on-light-2);line-height:1.8;
+  margin-bottom:1rem;
+}
+.about-copy p:first-child{
+  font-size:1.0125rem;font-weight:600;color:var(--on-light);
+}
+
+.about-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.75rem}
+
+.photo-placeholder{
+  width:100%;aspect-ratio:4/3.2;
+  background:#E0E0DC;border:2px dashed #C8C8C4;border-radius:var(--r);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.625rem;color:#B0B0AA;
+}
+.photo-placeholder svg{opacity:.4}
+.photo-placeholder span{
+  font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════
+   FEATURES
+═══════════════════════════════════════════════════════ */
+.features-section{
+  background:var(--bg-deep);
+  padding:var(--sp-sec) 0;text-align:center;
+}
+
+.feat-header{max-width:700px;margin:0 auto 3.5rem}
+
+.feat-h2{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:clamp(1.75rem,3.5vw,2.75rem);
+  font-weight:900;color:var(--on-dark);text-wrap:balance;
+  margin-bottom:1rem;
+}
+
+.feat-sub{
+  font-size:.875rem;font-weight:600;color:var(--accent);line-height:1.65;
+}
+
+.feat-rule{
+  width:56px;height:3px;background:var(--accent);
+  margin:1.25rem auto 0;border:none;
+}
+
+.feat-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2.75rem 3.5rem;max-width:940px;margin:0 auto 3.5rem;
+  text-align:left;
+}
+
+.feat-item{display:flex;align-items:flex-start;gap:1.1rem}
+
+.feat-icon-wrap{
+  width:44px;height:44px;flex-shrink:0;
+  background:rgba(196,18,48,.14);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--accent);
+}
+.feat-icon-wrap svg{width:22px;height:22px}
+
+.feat-text h3{
+  font-size:.9375rem;font-weight:700;color:var(--on-dark);
+  margin-bottom:.35rem;line-height:1.3;
+}
+.feat-text p{font-size:.84rem;color:var(--on-dark-2);line-height:1.66}
+
+/* ═══════════════════════════════════════════════════════
+   TESTIMONIALS
+═══════════════════════════════════════════════════════ */
+.testimonials-section{
+  background:var(--bg-surface);
+  padding:var(--sp-sec) 0;text-align:center;
+}
+
+.testi-h2{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:clamp(1.75rem,3.5vw,2.75rem);
+  font-weight:900;margin-bottom:2.5rem;
+}
+
+.testi-row{
+  display:flex;align-items:center;gap:1.5rem;
+  max-width:860px;margin:0 auto;
+}
+
+.carousel-btn{
+  width:46px;height:46px;flex-shrink:0;border-radius:50%;
+  background:var(--accent);border:none;color:#fff;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .18s;
+}
+.carousel-btn:hover{background:var(--accent-h)}
+
+.testi-track{flex:1;overflow:hidden}
+
+.testi-slide{display:none}
+.testi-slide.active{display:block}
+
+.testi-card{
+  background:#2A2A2A;border-top:5px solid var(--accent);
+  padding:3rem 3.5rem 2.5rem;
+}
+
+.quote-glyph{
+  display:block;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:4rem;line-height:.8;font-weight:700;
+  color:var(--accent);margin-bottom:1rem;user-select:none;
+}
+
+.testi-head{
+  font-size:.9375rem;font-weight:700;color:var(--on-dark);
+  line-height:1.45;margin-bottom:1.25rem;
+}
+
+.testi-body{
+  font-size:.85rem;color:rgba(255,255,255,.78);
+  line-height:1.82;margin-bottom:1.5rem;
+}
+
+.testi-name{font-size:.85rem;font-weight:700;color:var(--on-dark)}
+
+.testi-dots{
+  display:flex;justify-content:center;gap:.5rem;
+  margin-top:1.5rem;
+}
+.testi-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:rgba(255,255,255,.22);border:none;cursor:pointer;
+  transition:background .18s;padding:0;
+}
+.testi-dot.active{background:var(--accent)}
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════ */
+.site-footer{
+  background:#080808;
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:4rem 0 2rem;
+}
+
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:3rem;margin-bottom:3rem;
+}
+
+.footer-logo-ph{
+  width:150px;height:52px;
+  border:1px dashed rgba(255,255,255,.2);border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.64rem;font-weight:700;letter-spacing:.14em;
+  color:rgba(255,255,255,.28);text-transform:uppercase;
+  margin-bottom:1rem;
+}
+
+.footer-tag{
+  font-size:.85rem;color:rgba(255,255,255,.5);
+  line-height:1.72;max-width:230px;
+}
+
+.footer-col h4{
+  font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1.1rem;
+}
+.footer-col ul{display:flex;flex-direction:column;gap:.55rem}
+.footer-col ul a{
+  font-size:.85rem;color:rgba(255,255,255,.48);
+  transition:color .18s;
+}
+.footer-col ul a:hover{color:#fff}
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding-top:1.75rem;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.74rem;color:rgba(255,255,255,.28);gap:1rem;
+  flex-wrap:wrap;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCROLL-TO-TOP
+═══════════════════════════════════════════════════════ */
+#scroll-top{
+  position:fixed;bottom:1.5rem;right:1.5rem;
+  width:42px;height:42px;
+  background:var(--accent);border:none;border-radius:3px;
+  color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .28s,background .18s;z-index:100;
+}
+#scroll-top.vis{opacity:1;pointer-events:auto}
+#scroll-top:hover{background:var(--accent-h)}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════ */
+@media(max-width:1100px){
+  .services-grid{grid-template-columns:repeat(3,1fr)}
+  .svc-card{
+    border-right:none;
+    border-bottom:1px solid rgba(255,255,255,.055);
+  }
+  .svc-card:last-child{border-bottom:none}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .feat-grid{grid-template-columns:1fr 1fr;gap:2rem}
+}
+
+@media(max-width:720px){
+  .burger{display:flex}
+  .main-nav{
+    display:none;
+    position:fixed;inset:var(--nav-h) 0 auto;
+    background:rgba(8,8,8,.97);
+    flex-direction:column;align-items:flex-start;
+    padding:1rem 1.5rem 2rem;gap:0;
+    border-bottom:1px solid var(--border-dk);
+  }
+  .main-nav.open{display:flex}
+  .main-nav a{padding:.8rem 0;width:100%}
+  .main-nav .nav-cta{margin:.75rem 0 0;display:block;text-align:center}
+
+  .services-grid{grid-template-columns:1fr 1fr}
+
+  .testi-card{padding:2rem 1.5rem}
+
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+
+@media(max-width:480px){
+  .services-grid{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:1fr}
+  .testi-row{gap:.75rem}
+  .carousel-btn{width:38px;height:38px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{transition-duration:0.01ms!important;animation-duration:0.01ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+<!-- ══════════════════════════════════════
+  HEADER
+══════════════════════════════════════ -->
+<header class="site-header" id="site-header">
+  <div class="wrap header-row">
+    <a href="#hero" class="logo-wrap" aria-label="Home">
+      <!-- ↓ Replace with: <img src="your-logo.png" alt="Your Company Name" height="58"> -->
+      <div class="logo-placeholder">Your Logo</div>
+    </a>
+
+    <button class="burger" id="burger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="main-nav" id="main-nav" aria-label="Main">
+      <a href="#hero" class="active">Home</a>
+      <a href="#services">Services</a>
+      <a href="#about">About Us</a>
+      <a href="#projects">Projects</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" class="nav-cta">Contact Us</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════
+  HERO
+══════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-content">
+    <h1>Your Comfort,<br>Our Expertise.</h1>
+    <p class="hero-sub">
+      Heating, cooling, and air flow services<br>
+      in Your City and surrounding areas.
+    </p>
+    <a href="#contact" class="btn btn-red">Schedule a Service</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  SERVICES
+══════════════════════════════════════ -->
+<section class="services-section" id="services">
+  <div class="services-grid">
+
+    <!-- Card 1 · Heating & Cooling -->
+    <div class="svc-card">
+      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="32" y1="7"  x2="32" y2="57"/>
+        <line x1="7"  y1="32" x2="57" y2="32"/>
+        <line x1="14.7" y1="14.7" x2="49.3" y2="49.3"/>
+        <line x1="49.3" y1="14.7" x2="14.7" y2="49.3"/>
+        <line x1="32" y1="7"  x2="26" y2="13"/><line x1="32" y1="7"  x2="38" y2="13"/>
+        <line x1="32" y1="57" x2="26" y2="51"/><line x1="32" y1="57" x2="38" y2="51"/>
+        <line x1="7"  y1="32" x2="13" y2="26"/><line x1="7"  y1="32" x2="13" y2="38"/>
+        <line x1="57" y1="32" x2="51" y2="26"/><line x1="57" y1="32" x2="51" y2="38"/>
+        <circle cx="32" cy="32" r="5"/>
+        <circle cx="14.7" cy="14.7" r="3" fill="currentColor" stroke="none"/>
+        <circle cx="49.3" cy="14.7" r="3" fill="currentColor" stroke="none"/>
+        <circle cx="14.7" cy="49.3" r="3" fill="currentColor" stroke="none"/>
+        <circle cx="49.3" cy="49.3" r="3" fill="currentColor" stroke="none"/>
+      </svg>
+      <div class="svc-name">Heating &amp;<br>Cooling</div>
+      <p class="svc-desc">Whether you need a reliable heating solution during chilly winters or efficient cooling for scorching summers, we've got you covered.</p>
+      <a href="#contact" class="svc-more">
+        Learn More
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
+      </a>
+    </div>
+
+    <!-- Card 2 · Gas Fitting -->
+    <div class="svc-card">
+      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="19" y="24" width="26" height="16" rx="1"/>
+        <line x1="32" y1="16" x2="32" y2="24"/>
+        <circle cx="32" cy="12" r="7"/>
+        <line x1="25" y1="12" x2="39" y2="12"/>
+        <line x1="32" y1="5"  x2="32" y2="19"/>
+        <line x1="6"  y1="32" x2="19" y2="32"/>
+        <line x1="45" y1="32" x2="58" y2="32"/>
+        <line x1="6"  y1="27" x2="6"  y2="37"/>
+        <line x1="58" y1="27" x2="58" y2="37"/>
+        <circle cx="19" cy="32" r="3" fill="currentColor" stroke="none"/>
+        <circle cx="45" cy="32" r="3" fill="currentColor" stroke="none"/>
+      </svg>
+      <div class="svc-name">Gas Fitting</div>
+      <p class="svc-desc">Whether it's a new gas appliance installation or troubleshooting a gas leak, we prioritize efficiency and customer satisfaction.</p>
+      <a href="#contact" class="svc-more">
+        Learn More
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
+      </a>
+    </div>
+
+    <!-- Card 3 · Refrigeration -->
+    <div class="svc-card">
+      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M52 32a20 20 0 1 1-5-13.3"/>
+        <polyline points="47,12 52,20 44,20"/>
+        <line x1="32" y1="19" x2="32" y2="45"/>
+        <line x1="19" y1="32" x2="45" y2="32"/>
+        <line x1="23.8" y1="23.8" x2="40.2" y2="40.2"/>
+        <line x1="40.2" y1="23.8" x2="23.8" y2="40.2"/>
+        <line x1="32" y1="19" x2="28" y2="23"/><line x1="32" y1="19" x2="36" y2="23"/>
+        <line x1="32" y1="45" x2="28" y2="41"/><line x1="32" y1="45" x2="36" y2="41"/>
+        <line x1="19" y1="32" x2="23" y2="28"/><line x1="19" y1="32" x2="23" y2="36"/>
+        <line x1="45" y1="32" x2="41" y2="28"/><line x1="45" y1="32" x2="41" y2="36"/>
+      </svg>
+      <div class="svc-name">Refrigeration</div>
+      <p class="svc-desc">You can count on us for refrigeration that goes beyond expectations, preserving your goods with the perfect chill.</p>
+      <a href="#contact" class="svc-more">
+        Learn More
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
+      </a>
+    </div>
+
+    <!-- Card 4 · Ventilation -->
+    <div class="svc-card">
+      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="32" cy="32" r="5"/>
+        <path d="M32 27C31 18 36 8 32 7S26 17 32 27"/>
+        <path d="M37 32C46 31 56 36 57 32S47 26 37 32"/>
+        <path d="M32 37C33 46 28 56 32 57S38 47 32 37"/>
+        <path d="M27 32C18 33 8 28 7 32S17 38 27 32"/>
+      </svg>
+      <div class="svc-name">Ventilation</div>
+      <p class="svc-desc">Trust us to enhance your HVAC system with top-tier ventilation solutions tailored to meet your specific needs.</p>
+      <a href="#contact" class="svc-more">
+        Learn More
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
+      </a>
+    </div>
+
+    <!-- Card 5 · Installation -->
+    <div class="svc-card">
+      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 30L32 10L56 30"/>
+        <path d="M14 26V54H50V26"/>
+        <circle cx="27" cy="37" r="6"/>
+        <line x1="31.2" y1="41.2" x2="42" y2="52"/>
+        <line x1="40" y1="50" x2="43.5" y2="53.5"/>
+        <path d="M22 32a6 6 0 0 1 5-5 6 6 0 0 0-4 9"/>
+      </svg>
+      <div class="svc-name">Installation &amp;<br>Maintenance</div>
+      <p class="svc-desc">We do it all — from new installations, retrofits, and upgrades, to comprehensive maintenance plans.</p>
+      <a href="#contact" class="svc-more" style="margin-bottom:.25rem">
+        Installations &amp; Retrofits
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
+      </a>
+      <a href="#contact" class="svc-more">
+        Maintenance &amp; Service
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  ABOUT
+══════════════════════════════════════ -->
+<section class="about-section" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-copy">
+        <div class="about-eyebrow">Who We Are</div>
+        <h2 class="about-h2">Expert Service, Delivered By People Who Care</h2>
+        <p>Welcome to [Your Company], a family owned and operated business passionate about bringing comfort to yours.</p>
+        <p>As a close-knit HVAC company, we combine the warmth of family values with the expertise of industry professionals. Our journey began with a shared commitment to providing personalized heating, ventilation, and air conditioning solutions. From cozy homes to bustling businesses, we deliver a personal touch to every project, ensuring your comfort is our priority.</p>
+        <div class="about-actions">
+          <a href="#about"   class="btn btn-red">Learn More About Us</a>
+          <a href="#contact" class="btn btn-dim">Schedule Now</a>
+        </div>
+      </div>
+      <div class="about-image">
+        <!-- Replace with: <img src="your-team-photo.jpg" alt="Our technician at work"> -->
+        <div class="photo-placeholder">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="#aaa" stroke-width="1.5" aria-hidden="true">
+            <rect x="4" y="9" width="44" height="34" rx="2"/>
+            <circle cx="20" cy="25" r="6"/>
+            <path d="M4 40l11-12 8 8 9-11 16 15"/>
+          </svg>
+          <span>Your Photo Here</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  FEATURES / WHY US
+══════════════════════════════════════ -->
+<section class="features-section" id="features">
+  <div class="wrap">
+    <div class="feat-header">
+      <h2 class="feat-h2">What You Can Expect From Us</h2>
+      <p class="feat-sub">Our team of skilled HVAC technicians are fully certified, customer focused, and will always have your best interests in mind.</p>
+      <hr class="feat-rule">
+    </div>
+
+    <div class="feat-grid">
+
+      <div class="feat-item">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M7.5 12.5l3 3 6-6"/>
+          </svg>
+        </div>
+        <div class="feat-text">
+          <h3>Red Seal Certified</h3>
+          <p>We are fully licensed and certified, so you can be confident when we're on the job.</p>
+        </div>
+      </div>
+
+      <div class="feat-item">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/>
+          </svg>
+        </div>
+        <div class="feat-text">
+          <h3>Class B Gas Ticket Certified</h3>
+          <p>We ensure the highest standards of safety and expertise in gas-related HVAC systems.</p>
+        </div>
+      </div>
+
+      <div class="feat-item">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <line x1="10" y1="9"  x2="8"  y2="9"/>
+          </svg>
+        </div>
+        <div class="feat-text">
+          <h3>Free Quotes</h3>
+          <p>Discover transparency with us — your HVAC quote is on the house, always.</p>
+        </div>
+      </div>
+
+      <div class="feat-item">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="1" y="4" width="22" height="16" rx="2"/>
+            <line x1="1" y1="10" x2="23" y2="10"/>
+          </svg>
+        </div>
+        <div class="feat-text">
+          <h3>Competitive Pricing</h3>
+          <p>Unbeatable comfort meets unbeatable prices — top-notch HVAC services affordable for everyone.</p>
+        </div>
+      </div>
+
+      <div class="feat-item">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <div class="feat-text">
+          <h3>Customer Focused</h3>
+          <p>Your satisfaction is our compass; our HVAC services revolve around your needs and preferences.</p>
+        </div>
+      </div>
+
+      <div class="feat-item">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <div class="feat-text">
+          <h3>Quality Work</h3>
+          <p>Elevate your comfort with our commitment to precision, excellence, and lasting HVAC solutions.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center">
+      <a href="#contact" class="btn btn-red">Get Your Free Quote Today</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  TESTIMONIALS
+══════════════════════════════════════ -->
+<section class="testimonials-section" id="testimonials">
+  <div class="wrap">
+    <h2 class="testi-h2">What Our Customers Are Saying</h2>
+
+    <div class="testi-row">
+      <button class="carousel-btn" id="prev-btn" aria-label="Previous testimonial">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>
+      </button>
+
+      <div class="testi-track" aria-live="polite">
+
+        <div class="testi-slide active">
+          <div class="testi-card">
+            <span class="quote-glyph" aria-hidden="true">"</span>
+            <div class="testi-head">My first recommendation for anyone looking to have work done on their heating and cooling systems.</div>
+            <p class="testi-body">"We hired [Your Company] to plan and install our heat pump and air conditioning system. We have a very large home and required a unique solution. After several quotes from other companies, we chose them. They offered a genuinely reasonable quote and completed the work in a truly professional and timely manner. Their work exceeded expectations and they have been true to their word on backing their work."</p>
+            <div class="testi-name">Francis N.</div>
+          </div>
+        </div>
+
+        <div class="testi-slide">
+          <div class="testi-card">
+            <span class="quote-glyph" aria-hidden="true">"</span>
+            <div class="testi-head">Professional, timely, and completely respectful of our home throughout the entire project.</div>
+            <p class="testi-body">"From the initial consultation to the final walkthrough, every member of their team was professional and courteous. They explained everything clearly, cleaned up thoroughly, and the system has been running flawlessly since day one. Cannot recommend them highly enough to anyone in need of HVAC work."</p>
+            <div class="testi-name">Sarah M.</div>
+          </div>
+        </div>
+
+        <div class="testi-slide">
+          <div class="testi-card">
+            <span class="quote-glyph" aria-hidden="true">"</span>
+            <div class="testi-head">Best decision we made — the energy savings alone have already paid back our investment.</div>
+            <p class="testi-body">"We had them retrofit our older home with a modern heat pump system. The team was knowledgeable, efficient, and went above and beyond to make sure everything was working perfectly before they left. Our energy bills dropped significantly and the house is more comfortable than it has ever been in 20 years."</p>
+            <div class="testi-name">David T.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="carousel-btn" id="next-btn" aria-label="Next testimonial">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
+      </button>
+    </div>
+
+    <div class="testi-dots" role="tablist" aria-label="Testimonial navigation">
+      <button class="testi-dot active" data-i="0" role="tab" aria-selected="true"  aria-label="Testimonial 1"></button>
+      <button class="testi-dot"        data-i="1" role="tab" aria-selected="false" aria-label="Testimonial 2"></button>
+      <button class="testi-dot"        data-i="2" role="tab" aria-selected="false" aria-label="Testimonial 3"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  FOOTER
+══════════════════════════════════════ -->
+<footer class="site-footer" id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+
+      <div>
+        <!-- Replace with: <img src="logo-white.png" alt="Your Company" height="52"> -->
+        <div class="footer-logo-ph">Your Logo</div>
+        <p class="footer-tag">Heating, cooling, and air flow services in Your City and surrounding areas. Family owned and operated.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Heating &amp; Cooling</a></li>
+          <li><a href="#services">Gas Fitting</a></li>
+          <li><a href="#services">Refrigeration</a></li>
+          <li><a href="#services">Ventilation</a></li>
+          <li><a href="#services">Installation</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+17785551234">(778) 555-1234</a></li>
+          <li><a href="mailto:info@yourhvac.com">info@yourhvac.com</a></li>
+          <li><a href="#contact">Your City, BC</a></li>
+          <li><a href="#contact">Free Quotes</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 Your HVAC Company Ltd. All rights reserved.</span>
+      <span>Designed with care</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+  SCROLL-TO-TOP
+══════════════════════════════════════ -->
+<button id="scroll-top" aria-label="Back to top">
+  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M2.5 9.5L7.5 4.5L12.5 9.5"/>
+  </svg>
+</button>
+
+<script>
+(function(){
+  /* ─── Canvas hero background ─── */
+  const canvas = document.getElementById('hero-canvas');
+  function drawCanvas(){
+    const W = canvas.offsetWidth;
+    const H = canvas.offsetHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    /* base fill */
+    ctx.fillStyle = '#181818';
+    ctx.fillRect(0, 0, W, H);
+
+    /* pipe definitions: [x0, y0, x1, y1, diameter] */
+    const pipes = [
+      [0,       H*.28, W*.42, H*.28, 44],
+      [W*.38,   H*.28, W*.38, H*.72, 44],
+      [W*.38,   H*.72, W,     H*.72, 44],
+      [W*.62,   0,     W*.62, H*.38, 30],
+      [W*.62,   H*.38, W,     H*.38, 30],
+      [W*.14,   0,     W*.14, H*.52, 22],
+      [W*.14,   H*.52, W*.38, H*.52, 22],
+      [W*.72,   H*.55, W,     H*.55, 18],
+      [0,       H*.84, W*.28, H*.84, 34],
+      [W*.28,   H*.84, W*.28, H,     34],
+      [W*.78,   0,     W*.78, H*.28, 26],
+      [W*.78,   H*.28, W,     H*.28, 26],
+    ];
+
+    pipes.forEach(([x0, y0, x1, y1, d]) => {
+      const isH = y0 === y1;
+      ctx.fillStyle   = 'rgba(255,255,255,.055)';
+      ctx.strokeStyle = 'rgba(255,255,255,.035)';
+      ctx.lineWidth = 1;
+
+      if(isH){
+        ctx.fillRect(x0, y0 - d/2, x1-x0, d);
+        ctx.strokeRect(x0, y0 - d/2, x1-x0, d);
+      } else {
+        ctx.fillRect(x0 - d/2, y0, d, y1-y0);
+        ctx.strokeRect(x0 - d/2, y0, d, y1-y0);
+      }
+
+      /* flange rings at each endpoint */
+      [[x0,y0],[x1,y1]].forEach(([fx,fy]) => {
+        ctx.beginPath();
+        ctx.arc(fx, fy, d/2 + 7, 0, Math.PI*2);
+        ctx.fillStyle   = 'rgba(255,255,255,.038)';
+        ctx.strokeStyle = 'rgba(255,255,255,.055)';
+        ctx.lineWidth = 1.5;
+        ctx.fill(); ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(fx, fy, d/2 + 3, 0, Math.PI*2);
+        ctx.fillStyle   = 'rgba(255,255,255,.05)';
+        ctx.fill();
+      });
+    });
+
+    /* diagonal centre vignette */
+    const g = ctx.createRadialGradient(W/2, H*.55, 0, W/2, H*.55, Math.max(W,H)*.65);
+    g.addColorStop(0, 'rgba(14,14,14,.72)');
+    g.addColorStop(1, 'rgba(6,6,6,.62)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  drawCanvas();
+  window.addEventListener('resize', drawCanvas, {passive:true});
+
+
+  /* ─── Mobile burger ─── */
+  const burger = document.getElementById('burger');
+  const nav    = document.getElementById('main-nav');
+  burger.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', String(open));
+  });
+  nav.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => {
+      nav.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded','false');
+    })
+  );
+
+
+  /* ─── Testimonial carousel ─── */
+  const slides = Array.from(document.querySelectorAll('.testi-slide'));
+  const dots   = Array.from(document.querySelectorAll('.testi-dot'));
+  let cur = 0, timer;
+
+  function goTo(idx){
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    dots[cur].setAttribute('aria-selected','false');
+    cur = (idx + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+    dots[cur].setAttribute('aria-selected','true');
+  }
+
+  function resetTimer(){
+    clearInterval(timer);
+    timer = setInterval(()=> goTo(cur+1), 6500);
+  }
+
+  document.getElementById('prev-btn').addEventListener('click', ()=>{ goTo(cur-1); resetTimer(); });
+  document.getElementById('next-btn').addEventListener('click', ()=>{ goTo(cur+1); resetTimer(); });
+  dots.forEach(d => d.addEventListener('click', ()=>{ goTo(+d.dataset.i); resetTimer(); }));
+  resetTimer();
+
+
+  /* ─── Scroll-to-top ─── */
+  const scrollBtn = document.getElementById('scroll-top');
+  window.addEventListener('scroll', ()=>{
+    scrollBtn.classList.toggle('vis', window.scrollY > 420);
+  }, {passive:true});
+  scrollBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+
+  /* ─── Nav active state on scroll ─── */
+  const anchors = ['hero','services','about','features','testimonials','contact'];
+  const navLinks = Array.from(document.querySelectorAll('.main-nav a:not(.nav-cta)'));
+  window.addEventListener('scroll', ()=>{
+    let active = 'hero';
+    anchors.forEach(id => {
+      const el = document.getElementById(id);
+      if(el && window.scrollY >= el.offsetTop - 120) active = id;
+    });
+    navLinks.forEach(a =>
+      a.classList.toggle('active', a.getAttribute('href') === '#'+active)
+    );
+  }, {passive:true});
+
+})();
+</script>
