@@ -176,25 +176,35 @@ ul{list-style:none}
 /* ═══════════════════════════════════════════════════════
    SERVICES
 ═══════════════════════════════════════════════════════ */
-.services-section{background:var(--bg-surface)}
+.services-section{
+  background:var(--bg-deep);
+  padding:var(--sp-sec) 0;
+}
 
 .services-grid{
   display:grid;
-  grid-template-columns:repeat(5,1fr);
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 2rem;
 }
 
 .svc-card{
+  background:#1C2240;
   border-top:5px solid var(--accent);
-  padding:2.5rem 1.5rem 2rem;
-  display:flex;flex-direction:column;gap:.875rem;
-  border-right:1px solid rgba(255,255,255,.055);
-  background:var(--bg-surface);
-  transition:background .2s;
+  border-radius:3px;
+  padding:2.75rem 2rem 2.25rem;
+  display:flex;flex-direction:column;align-items:center;
+  gap:.9rem;text-align:center;
+  transition:transform .2s,box-shadow .2s;
 }
-.svc-card:last-child{border-right:none}
-.svc-card:hover{background:rgba(255,255,255,.038)}
+.svc-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 36px rgba(0,0,0,.45);
+}
 
-.svc-icon{width:56px;height:56px;color:var(--accent)}
+.svc-icon{width:64px;height:64px;color:var(--accent)}
 
 .svc-name{
   font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
@@ -203,6 +213,28 @@ ul{list-style:none}
   color:var(--on-dark);
 }
 
+.svc-price-label{
+  font-size:.68rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--on-dark-2);
+}
+
+.svc-price{
+  font-size:1.75rem;font-weight:900;
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  color:var(--on-dark);line-height:1;
+}
+
+.svc-book{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.62rem 1.5rem;
+  background:var(--accent);color:#fff;
+  border-radius:999px;
+  font-size:.78rem;font-weight:700;line-height:1.35;
+  text-align:center;
+  transition:background .18s,transform .15s;
+}
+.svc-book:hover{background:var(--accent-h);transform:translateY(-1px)}
+
 .svc-desc{
   font-size:.86rem;color:var(--on-dark-2);
   line-height:1.72;flex:1;
@@ -210,10 +242,10 @@ ul{list-style:none}
 
 .svc-more{
   display:inline-flex;align-items:center;gap:.45rem;
-  font-size:.84rem;font-weight:700;color:var(--on-dark);
+  font-size:.84rem;font-weight:700;color:var(--accent);
   transition:color .18s,gap .18s;margin-top:.2rem;
 }
-.svc-more:hover{color:var(--accent);gap:.7rem}
+.svc-more:hover{color:#fff;gap:.7rem}
 
 /* ═══════════════════════════════════════════════════════
    ABOUT
@@ -443,12 +475,6 @@ ul{list-style:none}
    RESPONSIVE
 ═══════════════════════════════════════════════════════ */
 @media(max-width:1100px){
-  .services-grid{grid-template-columns:repeat(3,1fr)}
-  .svc-card{
-    border-right:none;
-    border-bottom:1px solid rgba(255,255,255,.055);
-  }
-  .svc-card:last-child{border-bottom:none}
   .footer-grid{grid-template-columns:1fr 1fr}
 }
 
@@ -539,111 +565,51 @@ ul{list-style:none}
 <section class="services-section" id="services">
   <div class="services-grid">
 
-    <!-- Card 1 · Heating & Cooling -->
+    <!-- Card 1 · Kitchen Exhaust Cleaning -->
     <div class="svc-card">
-      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <line x1="32" y1="7"  x2="32" y2="57"/>
-        <line x1="7"  y1="32" x2="57" y2="32"/>
-        <line x1="14.7" y1="14.7" x2="49.3" y2="49.3"/>
-        <line x1="49.3" y1="14.7" x2="14.7" y2="49.3"/>
-        <line x1="32" y1="7"  x2="26" y2="13"/><line x1="32" y1="7"  x2="38" y2="13"/>
-        <line x1="32" y1="57" x2="26" y2="51"/><line x1="32" y1="57" x2="38" y2="51"/>
-        <line x1="7"  y1="32" x2="13" y2="26"/><line x1="7"  y1="32" x2="13" y2="38"/>
-        <line x1="57" y1="32" x2="51" y2="26"/><line x1="57" y1="32" x2="51" y2="38"/>
-        <circle cx="32" cy="32" r="5"/>
-        <circle cx="14.7" cy="14.7" r="3" fill="currentColor" stroke="none"/>
-        <circle cx="49.3" cy="14.7" r="3" fill="currentColor" stroke="none"/>
-        <circle cx="14.7" cy="49.3" r="3" fill="currentColor" stroke="none"/>
-        <circle cx="49.3" cy="49.3" r="3" fill="currentColor" stroke="none"/>
+      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <!-- 4-pointed sparkle -->
+        <path d="M32 10 C32 22 38 26 54 32 C38 32 32 38 32 54 C32 38 26 32 10 32 C26 32 32 22 32 10 Z"/>
+        <!-- Small accent sparkle top-right -->
+        <path d="M50 12 C50 16 52 18 56 18 C52 18 50 20 50 24 C50 20 48 18 44 18 C48 18 50 16 50 12 Z" fill="currentColor" stroke="none"/>
       </svg>
-      <div class="svc-name">Heating &amp;<br>Cooling</div>
-      <p class="svc-desc">Whether you need a reliable heating solution during chilly winters or efficient cooling for scorching summers, we've got you covered.</p>
+      <div class="svc-name">Kitchen Exhaust<br>Cleaning</div>
+      <div class="svc-price-label">Starting At</div>
+      <div class="svc-price">$XXX</div>
+      <p class="svc-desc">Complete kitchen exhaust system cleaning — hoods, filters, ductwork, and rooftop blowers — degreased top to bottom to reduce fire risk and keep your ventilation running efficiently.</p>
       <a href="#contact" class="svc-more">
         Learn More
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
       </a>
     </div>
 
-    <!-- Card 2 · Gas Fitting -->
+    <!-- Card 2 · Ocular Inspection -->
     <div class="svc-card">
-      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="19" y="24" width="26" height="16" rx="1"/>
-        <line x1="32" y1="16" x2="32" y2="24"/>
-        <circle cx="32" cy="12" r="7"/>
-        <line x1="25" y1="12" x2="39" y2="12"/>
-        <line x1="32" y1="5"  x2="32" y2="19"/>
-        <line x1="6"  y1="32" x2="19" y2="32"/>
-        <line x1="45" y1="32" x2="58" y2="32"/>
-        <line x1="6"  y1="27" x2="6"  y2="37"/>
-        <line x1="58" y1="27" x2="58" y2="37"/>
-        <circle cx="19" cy="32" r="3" fill="currentColor" stroke="none"/>
-        <circle cx="45" cy="32" r="3" fill="currentColor" stroke="none"/>
+      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="26" cy="26" r="18"/>
+        <line x1="38.8" y1="38.8" x2="57" y2="57"/>
       </svg>
-      <div class="svc-name">Gas Fitting</div>
-      <p class="svc-desc">Whether it's a new gas appliance installation or troubleshooting a gas leak, we prioritize efficiency and customer satisfaction.</p>
+      <div class="svc-name">Ocular Inspection</div>
+      <div class="svc-price-label">Starting At</div>
+      <div class="svc-price">$XXX</div>
+      <p class="svc-desc">On-site ocular inspection of your kitchen exhaust system to assess the scope of work before a final quote.</p>
       <a href="#contact" class="svc-more">
         Learn More
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
       </a>
     </div>
 
-    <!-- Card 3 · Refrigeration -->
+    <!-- Card 3 · Minor Repairs -->
     <div class="svc-card">
-      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M52 32a20 20 0 1 1-5-13.3"/>
-        <polyline points="47,12 52,20 44,20"/>
-        <line x1="32" y1="19" x2="32" y2="45"/>
-        <line x1="19" y1="32" x2="45" y2="32"/>
-        <line x1="23.8" y1="23.8" x2="40.2" y2="40.2"/>
-        <line x1="40.2" y1="23.8" x2="23.8" y2="40.2"/>
-        <line x1="32" y1="19" x2="28" y2="23"/><line x1="32" y1="19" x2="36" y2="23"/>
-        <line x1="32" y1="45" x2="28" y2="41"/><line x1="32" y1="45" x2="36" y2="41"/>
-        <line x1="19" y1="32" x2="23" y2="28"/><line x1="19" y1="32" x2="23" y2="36"/>
-        <line x1="45" y1="32" x2="41" y2="28"/><line x1="45" y1="32" x2="41" y2="36"/>
+      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M44 8a12 12 0 1 0-8.6 22.8L13 53.2a3.8 3.8 0 1 0 5.4 5.3L40.8 36.2A12 12 0 0 0 44 8z"/>
+        <path d="M44 8L38 14l5.5 5 6-5.5"/>
       </svg>
-      <div class="svc-name">Refrigeration</div>
-      <p class="svc-desc">You can count on us for refrigeration that goes beyond expectations, preserving your goods with the perfect chill.</p>
+      <div class="svc-name">Minor Repairs</div>
+      <a href="#contact" class="svc-book">Book an appointment<br>to discuss pricing</a>
+      <p class="svc-desc">Minor exhaust system repairs, including motor belt timing adjustments, belt replacement, and motor replacement.</p>
       <a href="#contact" class="svc-more">
         Learn More
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
-      </a>
-    </div>
-
-    <!-- Card 4 · Ventilation -->
-    <div class="svc-card">
-      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="32" cy="32" r="5"/>
-        <path d="M32 27C31 18 36 8 32 7S26 17 32 27"/>
-        <path d="M37 32C46 31 56 36 57 32S47 26 37 32"/>
-        <path d="M32 37C33 46 28 56 32 57S38 47 32 37"/>
-        <path d="M27 32C18 33 8 28 7 32S17 38 27 32"/>
-      </svg>
-      <div class="svc-name">Ventilation</div>
-      <p class="svc-desc">Trust us to enhance your HVAC system with top-tier ventilation solutions tailored to meet your specific needs.</p>
-      <a href="#contact" class="svc-more">
-        Learn More
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
-      </a>
-    </div>
-
-    <!-- Card 5 · Installation -->
-    <div class="svc-card">
-      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M8 30L32 10L56 30"/>
-        <path d="M14 26V54H50V26"/>
-        <circle cx="27" cy="37" r="6"/>
-        <line x1="31.2" y1="41.2" x2="42" y2="52"/>
-        <line x1="40" y1="50" x2="43.5" y2="53.5"/>
-        <path d="M22 32a6 6 0 0 1 5-5 6 6 0 0 0-4 9"/>
-      </svg>
-      <div class="svc-name">Installation &amp;<br>Maintenance</div>
-      <p class="svc-desc">We do it all — from new installations, retrofits, and upgrades, to comprehensive maintenance plans.</p>
-      <a href="#contact" class="svc-more" style="margin-bottom:.25rem">
-        Installations &amp; Retrofits
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
-      </a>
-      <a href="#contact" class="svc-more">
-        Maintenance &amp; Service
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
       </a>
     </div>
