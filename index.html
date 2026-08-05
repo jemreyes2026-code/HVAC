@@ -590,6 +590,36 @@ ul{list-style:none}
   font-size:clamp(1.7rem,3.5vw,2.5rem);font-weight:900;
   color:var(--on-dark);margin-bottom:.75rem;line-height:1.15;
 }
+/* ── Trusted By ─────────────────────────────── */
+.trusted-section{
+  background:var(--bg-surface);
+  padding:clamp(3rem,5vw,5rem) 0;
+}
+.trusted-label{
+  text-align:center;
+  font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--on-dark-2);margin-bottom:2.75rem;
+}
+.brand-track{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:.85rem;
+}
+.brand-pill{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.52rem 1.35rem;border-radius:5px;
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size:.8rem;font-weight:800;letter-spacing:.04em;
+  white-space:nowrap;
+  transition:transform .22s cubic-bezier(.22,1,.36,1),
+             box-shadow .22s,opacity .22s;
+  opacity:.85;
+}
+.brand-pill:hover{
+  transform:translateY(-3px) scale(1.07);
+  opacity:1;
+  box-shadow:0 8px 22px rgba(0,0,0,.4);
+}
+
 .areas-sub{
   font-size:.95rem;color:var(--on-dark-2);
   max-width:560px;margin:0 auto 3rem;
@@ -895,8 +925,37 @@ ul{list-style:none}
     <!-- Card 3 · Minor Repairs -->
     <div class="svc-card">
       <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M44 8a12 12 0 1 0-8.6 22.8L13 53.2a3.8 3.8 0 1 0 5.4 5.3L40.8 36.2A12 12 0 0 0 44 8z"/>
-        <path d="M44 8L38 14l5.5 5 6-5.5"/>
+        <!-- Head -->
+        <circle cx="47" cy="9" r="5"/>
+        <!-- Cap -->
+        <path d="M 42,7 Q 47,3 52,6"/>
+        <line x1="40" y1="8" x2="44" y2="8"/>
+        <!-- Torso (bent forward) -->
+        <line x1="44" y1="14" x2="28" y2="32"/>
+        <!-- Shoulders -->
+        <line x1="37" y1="20" x2="44" y2="17"/>
+        <!-- Right arm reaching to pipe -->
+        <polyline points="44,17 40,30 22,44"/>
+        <!-- Left arm (slight offset, same target) -->
+        <polyline points="37,20 32,28 21,43"/>
+        <!-- Right leg -->
+        <polyline points="28,32 36,48 40,58"/>
+        <line x1="36" y1="58" x2="44" y2="58"/>
+        <!-- Left leg -->
+        <polyline points="28,32 20,46 14,58"/>
+        <line x1="9" y1="58" x2="16" y2="58"/>
+        <!-- Wrench handle -->
+        <line x1="21" y1="44" x2="14" y2="51"/>
+        <!-- Wrench head (open C-jaw around fitting) -->
+        <path d="M 17,48 L 11,48 Q 9,51 11,54 L 17,54"/>
+        <!-- Pipe T-stub (vertical connector) -->
+        <rect x="14" y="42" width="7" height="9" rx="1"/>
+        <!-- Main horizontal pipe -->
+        <rect x="3" y="51" width="54" height="8" rx="3"/>
+        <!-- Water spray from fitting -->
+        <line x1="10" y1="47" x2="5" y2="43"/>
+        <line x1="8" y1="50" x2="3" y2="47"/>
+        <line x1="12" y1="44" x2="8" y2="40"/>
       </svg>
       <div class="svc-name">Minor Repairs</div>
       <a href="#contact" class="svc-book">Book an appointment<br>to discuss pricing</a>
@@ -937,6 +996,31 @@ ul{list-style:none}
           <span>Your Photo Here</span>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  TRUSTED BY
+══════════════════════════════════════ -->
+<section class="trusted-section">
+  <div class="wrap">
+    <p class="trusted-label reveal">Trusted By Leading Food Establishments</p>
+    <div class="brand-track stagger">
+      <span class="brand-pill" style="background:#C4172D;color:#fff">Shakey's</span>
+      <span class="brand-pill" style="background:#D95A10;color:#fff">Mang Inasal</span>
+      <span class="brand-pill" style="background:#CC0000;color:#fff">KFC</span>
+      <span class="brand-pill" style="background:#111111;color:#fff;border:1.5px solid #CC1122">Tokyo Tokyo</span>
+      <span class="brand-pill" style="background:#246B24;color:#fff">Greenwich</span>
+      <span class="brand-pill" style="background:#CC1E2A;color:#FFE000">Jollibee</span>
+      <span class="brand-pill" style="background:#1B5E5B;color:#fff">Mesa</span>
+      <span class="brand-pill" style="background:#003087;color:#fff">S&amp;R New York Style Pizza</span>
+      <span class="brand-pill" style="background:#CC1122;color:#fff">Hap Chan</span>
+      <span class="brand-pill" style="background:#1E1E1E;color:#E8C47A;border:1.5px solid #E8C47A">Marugame Udon</span>
+      <span class="brand-pill" style="background:#E8A000;color:#1A1A1A">Kangyupsalamat</span>
+      <span class="brand-pill" style="background:#E05800;color:#fff">Gerry's</span>
+      <span class="brand-pill" style="background:#8B1A1A;color:#fff">Ling Nam</span>
+      <span class="brand-pill" style="background:#CC1122;color:#fff">Chowking</span>
     </div>
   </div>
 </section>
