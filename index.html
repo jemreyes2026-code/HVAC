@@ -150,6 +150,10 @@ ul{list-style:none}
      background:url('your-hvac-photo.jpg') center/cover no-repeat;
      Then remove the canvas element. */
 }
+#steam-canvas{
+  position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;
+}
 .hero-overlay{
   position:absolute;inset:0;
   background:radial-gradient(ellipse at 50% 60%,rgba(8,8,8,.72) 0%,rgba(5,5,5,.88) 100%);
@@ -197,11 +201,8 @@ ul{list-style:none}
   padding:2.75rem 2rem 2.25rem;
   display:flex;flex-direction:column;align-items:center;
   gap:.9rem;text-align:center;
-  transition:transform .2s,box-shadow .2s;
-}
-.svc-card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 10px 36px rgba(0,0,0,.45);
+  transition:transform .3s cubic-bezier(.22,1,.36,1),
+             box-shadow .3s cubic-bezier(.22,1,.36,1);
 }
 
 .svc-icon{width:64px;height:64px;color:var(--accent)}
@@ -457,76 +458,113 @@ ul{list-style:none}
 }
 
 /* ═══════════════════════════════════════════════════════
-   TRANSITIONS & ANIMATIONS
+   TRANSITIONS & ANIMATIONS  ·  premium
 ═══════════════════════════════════════════════════════ */
 
-/* — Hero entrance — */
-@keyframes fade-up {
-  from { opacity:0; transform:translateY(26px); }
-  to   { opacity:1; transform:none; }
+/* — Page-load curtain (two halves split apart) — */
+#curtain-top,#curtain-bottom{
+  position:fixed;left:0;right:0;z-index:9999;
+  background:#0D0D0D;pointer-events:none;
 }
-.hero-content h1 {
-  animation: fade-up .8s cubic-bezier(.22,.68,0,1.05) .1s both;
+#curtain-top    { top:0;    height:50vh; }
+#curtain-bottom { bottom:0; height:50vh; }
+
+/* — Hero accent bar — */
+.hero-accent-line{
+  display:block;width:52px;height:3px;
+  background:var(--accent);
+  margin:0 auto 1.5rem;
+  transform:scaleX(0);transform-origin:center;
 }
-.hero-content .hero-sub {
-  animation: fade-up .72s cubic-bezier(.22,.68,0,1.05) .3s both;
+@keyframes bar-widen{
+  from{transform:scaleX(0)}
+  to  {transform:scaleX(1)}
 }
-.hero-content .btn {
-  animation: fade-up .65s cubic-bezier(.22,.68,0,1.05) .5s both;
+.hero-accent-line.in{
+  animation:bar-widen .55s cubic-bezier(.22,1,.36,1) both;
 }
 
+/* — Hero text clip-path reveal (fires after curtain) — */
+@keyframes clip-up{
+  from{clip-path:inset(0 0 110% 0);transform:translateY(18px)}
+  to  {clip-path:inset(0 0 -5%  0);transform:none}
+}
+.hero-content h1     { animation:clip-up .9s  cubic-bezier(.22,1,.36,1) both; opacity:0; }
+.hero-content .hero-sub { animation:clip-up .78s cubic-bezier(.22,1,.36,1) both; opacity:0; }
+.hero-content .btn   { animation:clip-up .68s cubic-bezier(.22,1,.36,1) both; opacity:0; }
+/* JS sets animation-delay once curtain duration is known */
+
 /* — Nav underline — */
-.main-nav a:not(.nav-cta) { position:relative; }
-.main-nav a:not(.nav-cta)::after {
+.main-nav a:not(.nav-cta){ position:relative; }
+.main-nav a:not(.nav-cta)::after{
   content:'';
-  position:absolute; bottom:0; left:.9rem; right:.9rem; height:2px;
+  position:absolute;bottom:0;left:.9rem;right:.9rem;height:2px;
   background:var(--accent);
-  transform:scaleX(0); transform-origin:left;
+  transform:scaleX(0);transform-origin:left;
   transition:transform .22s cubic-bezier(.22,1,.36,1);
 }
 .main-nav a:not(.nav-cta):hover::after,
-.main-nav a:not(.nav-cta).active::after { transform:scaleX(1); }
+.main-nav a:not(.nav-cta).active::after{transform:scaleX(1)}
 
-/* — Scroll reveal system — */
-.reveal {
-  opacity:0;
-  transform:translateY(26px);
-  transition:opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
+/* — Section heading clip-path reveal — */
+.reveal-heading{
+  clip-path:inset(0 0 110% 0);
+  transform:translateY(14px);
+  transition:clip-path .72s cubic-bezier(.22,1,.36,1),
+             transform   .72s cubic-bezier(.22,1,.36,1);
 }
-.reveal.is-visible { opacity:1; transform:none; }
-.reveal-d1 { transition-delay:110ms; }
-.reveal-d2 { transition-delay:220ms; }
+.reveal-heading.is-visible{clip-path:inset(0 0 -5% 0);transform:none}
+.reveal-heading.reveal-d1{transition-delay:100ms}
+
+/* — Scroll reveal (body content) — */
+.reveal{
+  opacity:0;transform:translateY(26px);
+  transition:opacity .65s cubic-bezier(.22,1,.36,1),
+             transform .65s cubic-bezier(.22,1,.36,1);
+}
+.reveal.is-visible{opacity:1;transform:none}
+.reveal-d1{transition-delay:110ms}
+.reveal-d2{transition-delay:220ms}
 
 /* — Stagger grid — */
-.stagger > * {
-  opacity:0;
-  transform:translateY(20px);
-  transition:opacity .52s cubic-bezier(.22,1,.36,1), transform .52s cubic-bezier(.22,1,.36,1);
+.stagger>*{
+  opacity:0;transform:translateY(20px);
+  transition:opacity .52s cubic-bezier(.22,1,.36,1),
+             transform .52s cubic-bezier(.22,1,.36,1);
 }
-.stagger.is-visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:  0ms; }
-.stagger.is-visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: 80ms; }
-.stagger.is-visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:160ms; }
-.stagger.is-visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:240ms; }
-.stagger.is-visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:320ms; }
-.stagger.is-visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:400ms; }
+.stagger.is-visible>*:nth-child(1){opacity:1;transform:none;transition-delay:  0ms}
+.stagger.is-visible>*:nth-child(2){opacity:1;transform:none;transition-delay: 80ms}
+.stagger.is-visible>*:nth-child(3){opacity:1;transform:none;transition-delay:160ms}
+.stagger.is-visible>*:nth-child(4){opacity:1;transform:none;transition-delay:240ms}
+.stagger.is-visible>*:nth-child(5){opacity:1;transform:none;transition-delay:320ms}
+.stagger.is-visible>*:nth-child(6){opacity:1;transform:none;transition-delay:400ms}
 
-/* — Enhanced service card hover — */
-.svc-card:hover {
-  transform:translateY(-6px);
-  box-shadow:0 14px 44px rgba(196,18,48,.18), 0 4px 14px rgba(0,0,0,.45);
+/* — Service card shimmer + lift — */
+.svc-card{position:relative;overflow:hidden}
+.svc-card::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(115deg,
+    transparent 38%,
+    rgba(255,255,255,.055) 50%,
+    transparent 62%);
+  transform:translateX(-140%);
+  transition:transform .62s cubic-bezier(.22,1,.36,1);
+  pointer-events:none;
+}
+.svc-card:hover::before{transform:translateX(140%)}
+.svc-card:hover{
+  transform:translateY(-7px);
+  box-shadow:0 16px 48px rgba(196,18,48,.2),0 4px 16px rgba(0,0,0,.5);
 }
 
 /* — Area pin bounce — */
-.area-pin { transition:transform .28s cubic-bezier(.22,1,.36,1); }
-.area-item:hover .area-pin { transform:translateY(-6px); }
+.area-pin{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.area-item:hover .area-pin{transform:translateY(-7px)}
 
-/* — Feature icon hover — */
-.feat-icon-wrap svg {
-  transition:transform .25s cubic-bezier(.22,1,.36,1);
-}
-.feat-item:hover .feat-icon-wrap svg {
-  transform:scale(1.18) rotate(-5deg);
-}
+/* — Feature icon micro — */
+.feat-icon-wrap svg{transition:transform .25s cubic-bezier(.22,1,.36,1)}
+.feat-item:hover .feat-icon-wrap svg{transform:scale(1.18) rotate(-5deg)}
 
 /* ═══════════════════════════════════════════════════════
    SERVICE AREAS
@@ -732,6 +770,10 @@ ul{list-style:none}
 }
 </style>
 
+<!-- Page-load curtain -->
+<div id="curtain-top"    aria-hidden="true"></div>
+<div id="curtain-bottom" aria-hidden="true"></div>
+
 <!-- ══════════════════════════════════════
   HEADER
 ══════════════════════════════════════ -->
@@ -762,8 +804,10 @@ ul{list-style:none}
 ══════════════════════════════════════ -->
 <section class="hero" id="hero">
   <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <canvas id="steam-canvas" aria-hidden="true"></canvas>
   <div class="hero-overlay" aria-hidden="true"></div>
   <div class="hero-content">
+    <span class="hero-accent-line" aria-hidden="true"></span>
     <h1>Your Comfort,<br>Our Expertise.</h1>
     <p class="hero-sub">
       Heating, cooling, and air flow services<br>
@@ -789,7 +833,7 @@ ul{list-style:none}
       </svg>
       <div class="svc-name">Kitchen Exhaust<br>Cleaning</div>
       <div class="svc-price-label">Starting At</div>
-      <div class="svc-price">₱6,500</div>
+      <div class="svc-price" data-target="6500">₱6,500</div>
       <p class="svc-desc">Complete kitchen exhaust system cleaning — hoods, filters, ductwork, and rooftop blowers — degreased top to bottom to reduce fire risk and keep your ventilation running efficiently.</p>
       <a href="#contact" class="svc-more">
         Learn More
@@ -805,7 +849,7 @@ ul{list-style:none}
       </svg>
       <div class="svc-name">Ocular Inspection</div>
       <div class="svc-price-label">Starting At</div>
-      <div class="svc-price">₱1,000</div>
+      <div class="svc-price" data-target="1000">₱1,000</div>
       <p class="svc-desc">On-site ocular inspection of your kitchen exhaust system to assess the scope of work before a final quote.</p>
       <a href="#contact" class="svc-more">
         Learn More
@@ -839,7 +883,7 @@ ul{list-style:none}
     <div class="about-grid">
       <div class="about-copy reveal">
         <div class="about-eyebrow">Who We Are</div>
-        <h2 class="about-h2">Expert Service, Delivered By People Who Care</h2>
+        <h2 class="about-h2 reveal-heading">Expert Service, Delivered By People Who Care</h2>
         <p>Welcome to [Your Company], a family owned and operated business passionate about bringing comfort to yours.</p>
         <p>As a close-knit HVAC company, we combine the warmth of family values with the expertise of industry professionals. Our journey began with a shared commitment to providing personalized heating, ventilation, and air conditioning solutions. From cozy homes to bustling businesses, we deliver a personal touch to every project, ensuring your comfort is our priority.</p>
         <div class="about-actions">
@@ -868,7 +912,7 @@ ul{list-style:none}
 <section class="features-section" id="features">
   <div class="wrap">
     <div class="feat-header reveal">
-      <h2 class="feat-h2">What You Can Expect From Us</h2>
+      <h2 class="feat-h2 reveal-heading">What You Can Expect From Us</h2>
       <p class="feat-sub">Our team of skilled HVAC technicians are fully certified, customer focused, and will always have your best interests in mind.</p>
       <hr class="feat-rule">
     </div>
@@ -966,7 +1010,7 @@ ul{list-style:none}
 ══════════════════════════════════════ -->
 <section class="testimonials-section" id="testimonials">
   <div class="wrap">
-    <h2 class="testi-h2 reveal">What Our Customers Are Saying</h2>
+    <h2 class="testi-h2 reveal-heading">What Our Customers Are Saying</h2>
 
     <div class="testi-row reveal reveal-d1">
       <button class="carousel-btn" id="prev-btn" aria-label="Previous testimonial">
@@ -1024,7 +1068,7 @@ ul{list-style:none}
   <div class="areas-bg" aria-hidden="true"></div>
   <div class="wrap">
     <div class="areas-eyebrow reveal">Where We Work</div>
-    <h2 class="areas-h2 reveal reveal-d1">Our Service Areas</h2>
+    <h2 class="areas-h2 reveal-heading reveal-d1">Our Service Areas</h2>
     <p class="areas-sub reveal reveal-d2">We proudly serve commercial kitchens and food establishments across Metro Manila and surrounding areas.</p>
 
     <div class="areas-grid stagger">
@@ -1091,7 +1135,7 @@ ul{list-style:none}
       <!-- Left: Info -->
       <div class="contact-info reveal">
         <div class="contact-eyebrow">Get In Touch</div>
-        <h2 class="contact-h2">Contact Us</h2>
+        <h2 class="contact-h2 reveal-heading">Contact Us</h2>
         <p class="contact-tagline">Ready to schedule a cleaning or have questions? Reach out and our team will get back to you promptly.</p>
 
         <div class="contact-detail-list">
@@ -1237,7 +1281,55 @@ ul{list-style:none}
 
 <script>
 (function(){
-  /* ─── Canvas hero background ─── */
+  const noMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* ─── Page-load curtain ─── */
+  const ctTop = document.getElementById('curtain-top');
+  const ctBot = document.getElementById('curtain-bottom');
+  const CURTAIN_MS = noMotion ? 0 : 900;
+  if(noMotion){
+    ctTop.remove(); ctBot.remove();
+  } else {
+    /* delay one rAF so the browser paints the curtain before transitioning */
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const ease = 'cubic-bezier(.76,0,.24,1)';
+      ctTop.style.transition = `transform ${CURTAIN_MS}ms ${ease}`;
+      ctBot.style.transition = `transform ${CURTAIN_MS}ms ${ease}`;
+      ctTop.style.transform  = 'translateY(-100%)';
+      ctBot.style.transform  = 'translateY(100%)';
+    }));
+    setTimeout(() => { ctTop.remove(); ctBot.remove(); }, CURTAIN_MS + 200);
+  }
+
+  /* ─── Hero entrance (synced to curtain) ─── */
+  const LINE_DELAY   = CURTAIN_MS * .8;          /* accent bar  */
+  const H1_DELAY     = CURTAIN_MS * .9 + 80;     /* h1          */
+  const SUB_DELAY    = CURTAIN_MS * .9 + 260;    /* subtitle    */
+  const BTN_DELAY    = CURTAIN_MS * .9 + 460;    /* CTA button  */
+
+  const heroLine = document.querySelector('.hero-accent-line');
+  const heroH1   = document.querySelector('.hero-content h1');
+  const heroSub  = document.querySelector('.hero-content .hero-sub');
+  const heroBtn  = document.querySelector('.hero-content .btn');
+
+  if(noMotion){
+    [heroH1, heroSub, heroBtn].forEach(el => { if(el) el.style.opacity = '1'; });
+    if(heroLine) heroLine.classList.add('in');
+  } else {
+    setTimeout(() => heroLine?.classList.add('in'), LINE_DELAY);
+    setTimeout(() => {
+      if(heroH1)  { heroH1.style.animationDelay  = '0ms'; heroH1.style.opacity  = '1'; }
+    }, H1_DELAY);
+    setTimeout(() => {
+      if(heroSub) { heroSub.style.animationDelay = '0ms'; heroSub.style.opacity = '1'; }
+    }, SUB_DELAY);
+    setTimeout(() => {
+      if(heroBtn) { heroBtn.style.animationDelay = '0ms'; heroBtn.style.opacity = '1'; }
+    }, BTN_DELAY);
+  }
+
+
+  /* ─── Static background canvas (pipes) ─── */
   const canvas = document.getElementById('hero-canvas');
   function drawCanvas(){
     const W = canvas.offsetWidth;
@@ -1248,11 +1340,9 @@ ul{list-style:none}
     const ctx = canvas.getContext('2d');
     ctx.scale(dpr, dpr);
 
-    /* base fill */
-    ctx.fillStyle = '#181818';
+    ctx.fillStyle = '#111418';
     ctx.fillRect(0, 0, W, H);
 
-    /* pipe definitions: [x0, y0, x1, y1, diameter] */
     const pipes = [
       [0,       H*.28, W*.42, H*.28, 44],
       [W*.38,   H*.28, W*.38, H*.72, 44],
@@ -1270,43 +1360,97 @@ ul{list-style:none}
 
     pipes.forEach(([x0, y0, x1, y1, d]) => {
       const isH = y0 === y1;
-      ctx.fillStyle   = 'rgba(255,255,255,.055)';
-      ctx.strokeStyle = 'rgba(255,255,255,.035)';
+      ctx.fillStyle   = 'rgba(255,255,255,.05)';
+      ctx.strokeStyle = 'rgba(255,255,255,.03)';
       ctx.lineWidth = 1;
-
-      if(isH){
-        ctx.fillRect(x0, y0 - d/2, x1-x0, d);
-        ctx.strokeRect(x0, y0 - d/2, x1-x0, d);
-      } else {
-        ctx.fillRect(x0 - d/2, y0, d, y1-y0);
-        ctx.strokeRect(x0 - d/2, y0, d, y1-y0);
-      }
-
-      /* flange rings at each endpoint */
+      if(isH){ ctx.fillRect(x0, y0-d/2, x1-x0, d); ctx.strokeRect(x0, y0-d/2, x1-x0, d); }
+      else    { ctx.fillRect(x0-d/2, y0, d, y1-y0); ctx.strokeRect(x0-d/2, y0, d, y1-y0); }
       [[x0,y0],[x1,y1]].forEach(([fx,fy]) => {
         ctx.beginPath();
-        ctx.arc(fx, fy, d/2 + 7, 0, Math.PI*2);
-        ctx.fillStyle   = 'rgba(255,255,255,.038)';
-        ctx.strokeStyle = 'rgba(255,255,255,.055)';
+        ctx.arc(fx, fy, d/2+7, 0, Math.PI*2);
+        ctx.fillStyle   = 'rgba(255,255,255,.034)';
+        ctx.strokeStyle = 'rgba(255,255,255,.048)';
         ctx.lineWidth = 1.5;
         ctx.fill(); ctx.stroke();
         ctx.beginPath();
-        ctx.arc(fx, fy, d/2 + 3, 0, Math.PI*2);
-        ctx.fillStyle   = 'rgba(255,255,255,.05)';
+        ctx.arc(fx, fy, d/2+3, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(255,255,255,.045)';
         ctx.fill();
       });
     });
 
-    /* diagonal centre vignette */
-    const g = ctx.createRadialGradient(W/2, H*.55, 0, W/2, H*.55, Math.max(W,H)*.65);
-    g.addColorStop(0, 'rgba(14,14,14,.72)');
-    g.addColorStop(1, 'rgba(6,6,6,.62)');
-    ctx.fillStyle = g;
+    /* warm glow at bottom (kitchen heat ambience) */
+    const glow = ctx.createRadialGradient(W*.5, H, 0, W*.5, H, W*.7);
+    glow.addColorStop(0,   'rgba(196,18,48,.07)');
+    glow.addColorStop(.6,  'rgba(120,8,24,.03)');
+    glow.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+
+    /* vignette */
+    const vig = ctx.createRadialGradient(W/2, H*.5, 0, W/2, H*.5, Math.max(W,H)*.65);
+    vig.addColorStop(0, 'rgba(14,14,14,.68)');
+    vig.addColorStop(1, 'rgba(5,5,5,.6)');
+    ctx.fillStyle = vig;
     ctx.fillRect(0, 0, W, H);
   }
-
   drawCanvas();
-  window.addEventListener('resize', drawCanvas, {passive:true});
+
+
+  /* ─── Steam particles canvas ─── */
+  const steam = document.getElementById('steam-canvas');
+  let sW, sH, sDpr;
+  const particles = [];
+
+  function resizeSteam(){
+    sW = steam.offsetWidth; sH = steam.offsetHeight;
+    sDpr = Math.min(window.devicePixelRatio || 1, 2);
+    steam.width  = sW * sDpr;
+    steam.height = sH * sDpr;
+  }
+
+  function tickSteam(){
+    const ctx = steam.getContext('2d');
+    ctx.clearRect(0, 0, steam.width, steam.height);
+
+    /* spawn */
+    if(!noMotion && particles.length < 28 && Math.random() < .055){
+      const life = 220 + Math.random() * 200;
+      particles.push({
+        x: sW * (.18 + Math.random() * .64),
+        y: sH * (.72 + Math.random() * .22),
+        r: Math.random() * 20 + 10,
+        vy: Math.random() * .42 + .18,
+        wobble: Math.random() * Math.PI * 2,
+        ws: Math.random() * .011 + .004,
+        life, maxLife: life,
+        maxA: Math.random() * .052 + .018,
+      });
+    }
+
+    for(let i = particles.length-1; i >= 0; i--){
+      const p = particles[i];
+      p.y -= p.vy; p.wobble += p.ws;
+      p.x += Math.sin(p.wobble) * .22;
+      if(--p.life <= 0){ particles.splice(i,1); continue; }
+
+      const t = p.life / p.maxLife;
+      const a = t < .15 ? (t/.15)*p.maxA : t > .7 ? ((t-.7)/.3) * p.maxA : p.maxA;
+      const sc = sDpr;
+      const g  = ctx.createRadialGradient(p.x*sc, p.y*sc, 0, p.x*sc, p.y*sc, p.r*sc);
+      g.addColorStop(0, `rgba(210,215,230,${a})`);
+      g.addColorStop(1, 'rgba(210,215,230,0)');
+      ctx.beginPath();
+      ctx.arc(p.x*sc, p.y*sc, p.r*sc, 0, Math.PI*2);
+      ctx.fillStyle = g;
+      ctx.fill();
+    }
+    requestAnimationFrame(tickSteam);
+  }
+  resizeSteam();
+  tickSteam();
+
+  window.addEventListener('resize', ()=>{ drawCanvas(); resizeSteam(); }, {passive:true});
 
 
   /* ─── Mobile burger ─── */
@@ -1330,7 +1474,6 @@ ul{list-style:none}
   const slides = Array.from(document.querySelectorAll('.testi-slide'));
   const dots   = Array.from(document.querySelectorAll('.testi-dot'));
   let cur = 0, timer;
-
   function goTo(idx){
     slides[cur].classList.remove('active');
     dots[cur].classList.remove('active');
@@ -1340,12 +1483,7 @@ ul{list-style:none}
     dots[cur].classList.add('active');
     dots[cur].setAttribute('aria-selected','true');
   }
-
-  function resetTimer(){
-    clearInterval(timer);
-    timer = setInterval(()=> goTo(cur+1), 6500);
-  }
-
+  function resetTimer(){ clearInterval(timer); timer = setInterval(()=>goTo(cur+1), 6500); }
   document.getElementById('prev-btn').addEventListener('click', ()=>{ goTo(cur-1); resetTimer(); });
   document.getElementById('next-btn').addEventListener('click', ()=>{ goTo(cur+1); resetTimer(); });
   dots.forEach(d => d.addEventListener('click', ()=>{ goTo(+d.dataset.i); resetTimer(); }));
@@ -1361,7 +1499,7 @@ ul{list-style:none}
 
 
   /* ─── Nav active state on scroll ─── */
-  const anchors = ['hero','services','about','features','testimonials','areas','contact'];
+  const anchors  = ['hero','services','about','features','testimonials','areas','contact'];
   const navLinks = Array.from(document.querySelectorAll('.main-nav a:not(.nav-cta)'));
   window.addEventListener('scroll', ()=>{
     let active = 'hero';
@@ -1375,21 +1513,62 @@ ul{list-style:none}
   }, {passive:true});
 
 
-  /* ─── Scroll reveal ─── */
-  const revealEls = document.querySelectorAll('.reveal, .stagger');
+  /* ─── Scroll reveal (regular + heading clip-path) ─── */
   if('IntersectionObserver' in window){
-    const ro = new IntersectionObserver((entries) => {
+    const ro = new IntersectionObserver(entries => {
       entries.forEach(e => {
-        if(e.isIntersecting){
-          e.target.classList.add('is-visible');
-          ro.unobserve(e.target);
-        }
+        if(e.isIntersecting){ e.target.classList.add('is-visible'); ro.unobserve(e.target); }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
-    revealEls.forEach(el => ro.observe(el));
+    document.querySelectorAll('.reveal,.stagger,.reveal-heading')
+      .forEach(el => ro.observe(el));
   } else {
-    /* fallback: show everything immediately */
-    revealEls.forEach(el => el.classList.add('is-visible'));
+    document.querySelectorAll('.reveal,.stagger,.reveal-heading')
+      .forEach(el => el.classList.add('is-visible'));
+  }
+
+
+  /* ─── Pricing counter ─── */
+  function countUp(el, target, ms){
+    const t0 = performance.now();
+    (function step(now){
+      const p = Math.min((now - t0) / ms, 1);
+      const v = Math.round((1 - Math.pow(1-p, 3)) * target);
+      el.textContent = '₱' + v.toLocaleString();
+      if(p < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+  const priceEls = document.querySelectorAll('.svc-price[data-target]');
+  if('IntersectionObserver' in window && priceEls.length){
+    const priceRo = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          countUp(e.target, +e.target.dataset.target, 1100);
+          priceRo.unobserve(e.target);
+        }
+      });
+    }, {threshold:.6});
+    priceEls.forEach(el => priceRo.observe(el));
+  }
+
+
+  /* ─── Magnetic buttons ─── */
+  if(!noMotion){
+    document.querySelectorAll('.btn-red, .nav-cta, .contact-submit').forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transition = 'transform .08s linear, background .18s, box-shadow .18s';
+      });
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width  / 2) * .14;
+        const y = (e.clientY - r.top  - r.height / 2) * .14;
+        btn.style.transform = `translate(${x}px,${y}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transition = 'transform .4s cubic-bezier(.22,1,.36,1), background .18s, box-shadow .18s';
+        btn.style.transform  = '';
+      });
+    });
   }
 
 })();
