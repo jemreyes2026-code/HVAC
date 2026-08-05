@@ -1453,6 +1453,17 @@ ul{list-style:none}
             </select>
           </div>
 
+          <div class="form-row">
+            <div class="form-group">
+              <label for="booking-date">Preferred Date</label>
+              <input type="date" id="booking-date" name="booking-date">
+            </div>
+            <div class="form-group">
+              <label for="booking-time">Preferred Time</label>
+              <input type="time" id="booking-time" name="booking-time">
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="message">Message</label>
             <textarea id="message" name="message" placeholder="Tell us more about your needs…"></textarea>
@@ -1563,6 +1574,16 @@ ul{list-style:none}
           <option value="repairs">Minor Repairs</option>
         </select>
       </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="qf-date">Preferred Date</label>
+          <input type="date" id="qf-date" name="qf-date">
+        </div>
+        <div class="form-group">
+          <label for="qf-time">Preferred Time</label>
+          <input type="time" id="qf-time" name="qf-time">
+        </div>
+      </div>
       <button type="submit" class="contact-submit quote-submit">Request My Free Quote</button>
     </form>
     <p class="quote-thanks" id="quote-thanks">Thanks! We've received your request and will get back to you shortly.</p>
@@ -1573,6 +1594,12 @@ ul{list-style:none}
 <script>
 (function(){
   const noMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* ─── Booking date pickers: block past dates ─── */
+  const todayISO = new Date().toISOString().slice(0, 10);
+  document.querySelectorAll('#booking-date, #qf-date').forEach(el => {
+    el.min = todayISO;
+  });
 
   /* ─── Page-load curtain ─── */
   const ctTop = document.getElementById('curtain-top');
