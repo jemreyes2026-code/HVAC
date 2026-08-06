@@ -1,0 +1,1951 @@
+<title>Your HVAC Company — Your Comfort, Our Expertise</title>
+
+<style>
+/* ── Tokens (dark-first) ───────────────────────────────── */
+:root {
+  --bg-base:    #141414;
+  --bg-surface: #252525;
+  --bg-deep:    #0D0D0D;
+  --bg-light:   #F3F3F1;
+  --on-dark:    #FFFFFF;
+  --on-dark-2:  rgba(255,255,255,.62);
+  --on-light:   #191919;
+  --on-light-2: #565656;
+  --accent:     #C41230;
+  --accent-h:   #A30E26;
+  --border-dk:  rgba(255,255,255,.07);
+  --border-lt:  rgba(0,0,0,.1);
+  --nav-h:      76px;
+  --sp-sec:     clamp(4rem, 8vw, 7rem);
+  --r:          1px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-base:    #F3F3F1;
+    --bg-surface: #E7E7E5;
+    --bg-deep:    #DCDCD9;
+    --bg-light:   #FFFFFF;
+    --on-dark:    #191919;
+    --on-dark-2:  rgba(0,0,0,.58);
+    --border-dk:  rgba(0,0,0,.08);
+  }
+}
+:root[data-theme="dark"] {
+  --bg-base:    #141414;
+  --bg-surface: #252525;
+  --bg-deep:    #0D0D0D;
+  --bg-light:   #F3F3F1;
+  --on-dark:    #FFFFFF;
+  --on-dark-2:  rgba(255,255,255,.62);
+  --border-dk:  rgba(255,255,255,.07);
+}
+:root[data-theme="light"] {
+  --bg-base:    #F3F3F1;
+  --bg-surface: #E7E7E5;
+  --bg-deep:    #DCDCD9;
+  --bg-light:   #FFFFFF;
+  --on-dark:    #191919;
+  --on-dark-2:  rgba(0,0,0,.58);
+  --border-dk:  rgba(0,0,0,.08);
+}
+
+/* ── Reset ─────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size:.9375rem;
+  background:var(--bg-base);
+  color:var(--on-dark);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+
+/* ── Layout helpers ─────────────────────────────────────── */
+.wrap{max-width:1200px;margin:0 auto;padding:0 2rem}
+
+/* ── Buttons ────────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.82rem 1.9rem;
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  border:none;border-radius:var(--r);cursor:pointer;
+  transition:background .2s,transform .15s;white-space:nowrap;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:none}
+.btn-red{background:var(--accent);color:#fff}
+.btn-red:hover{background:var(--accent-h)}
+.btn-dim{background:#3C3C3C;color:#fff}
+.btn-dim:hover{background:#484848}
+
+/* ═══════════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════════ */
+.site-header{
+  position:fixed;inset:0 0 auto;z-index:200;
+  height:var(--nav-h);
+  background:rgba(10,10,10,.94);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border-dk);
+}
+.header-row{
+  display:flex;align-items:center;justify-content:space-between;
+  height:100%;
+}
+
+.logo-placeholder{
+  width:170px;height:58px;
+  border:1.5px dashed rgba(255,255,255,.26);border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.32);
+}
+
+.main-nav{display:flex;align-items:center;gap:.1rem}
+.main-nav a{
+  padding:.5rem .9rem;
+  font-size:.73rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);
+  transition:color .18s;
+}
+.main-nav a:hover,
+.main-nav a.active{color:var(--accent)}
+.main-nav .nav-cta{
+  margin-left:.625rem;padding:.58rem 1.2rem;
+  background:var(--accent);color:#fff;border-radius:var(--r);
+  transition:background .18s;
+}
+.main-nav .nav-cta:hover{background:var(--accent-h);color:#fff}
+
+.burger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:5px 2px;
+}
+.burger span{
+  display:block;width:22px;height:2px;background:#fff;
+  border-radius:1px;transition:.28s;
+}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ═══════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════ */
+.hero{
+  position:relative;height:100vh;min-height:560px;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  overflow:hidden;
+}
+#hero-canvas{
+  position:absolute;inset:0;width:100%;height:100%;
+  /* Replace with <img> or CSS background-image when you have a real photo:
+     background:url('your-hvac-photo.jpg') center/cover no-repeat;
+     Then remove the canvas element. */
+}
+#steam-canvas{
+  position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 60%,rgba(8,8,8,.72) 0%,rgba(5,5,5,.88) 100%);
+}
+.hero-content{
+  position:relative;z-index:2;
+  max-width:740px;padding:0 1.5rem;
+  padding-top:var(--nav-h);
+}
+.hero h1{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:clamp(2.75rem,6.5vw,5rem);
+  font-weight:900;line-height:1.06;
+  color:#fff;text-wrap:balance;
+  margin-bottom:1.25rem;
+  text-shadow:0 2px 28px rgba(0,0,0,.55);
+}
+.hero-sub{
+  font-size:.9375rem;color:rgba(255,255,255,.76);
+  line-height:1.55;margin-bottom:2.5rem;
+  text-shadow:0 1px 10px rgba(0,0,0,.5);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SERVICES
+═══════════════════════════════════════════════════════ */
+.services-section{
+  background:var(--bg-deep);
+  padding:var(--sp-sec) 0;
+}
+
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 2rem;
+}
+
+.svc-card{
+  background:#1C2240;
+  border-top:5px solid var(--accent);
+  border-radius:3px;
+  padding:2.75rem 2rem 2.25rem;
+  display:flex;flex-direction:column;align-items:center;
+  gap:.9rem;text-align:center;
+  transition:transform .3s cubic-bezier(.22,1,.36,1),
+             box-shadow .3s cubic-bezier(.22,1,.36,1);
+}
+
+.svc-icon{width:64px;height:64px;color:var(--accent)}
+
+.svc-name{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:.82rem;font-weight:900;letter-spacing:.04em;
+  text-transform:uppercase;line-height:1.35;
+  color:var(--on-dark);
+}
+
+.svc-price-label{
+  font-size:.68rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--on-dark-2);
+}
+
+.svc-price{
+  font-size:1.75rem;font-weight:900;
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  color:var(--on-dark);line-height:1;
+}
+
+.svc-book{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.62rem 1.5rem;
+  background:var(--accent);color:#fff;
+  border-radius:999px;
+  font-size:.78rem;font-weight:700;line-height:1.35;
+  text-align:center;
+  transition:background .18s,transform .15s;
+}
+.svc-book:hover{background:var(--accent-h);transform:translateY(-1px)}
+
+.svc-desc{
+  font-size:.86rem;color:var(--on-dark-2);
+  line-height:1.72;flex:1;
+}
+
+.svc-more{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-size:.84rem;font-weight:700;color:var(--accent);
+  transition:color .18s,gap .18s;margin-top:.2rem;
+}
+.svc-more:hover{color:#fff;gap:.7rem}
+
+/* ═══════════════════════════════════════════════════════
+   ABOUT
+═══════════════════════════════════════════════════════ */
+.about-section{
+  background:var(--bg-light);
+  padding:var(--sp-sec) 0;
+}
+
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;
+}
+
+.about-eyebrow{
+  font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.75rem;
+}
+
+.about-h2{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:clamp(1.75rem,3.5vw,2.75rem);
+  font-weight:900;line-height:1.14;
+  color:var(--on-light);text-wrap:balance;
+  margin-bottom:1.5rem;
+}
+
+.about-copy p{
+  font-size:.9375rem;color:var(--on-light-2);line-height:1.8;
+  margin-bottom:1rem;
+}
+.about-copy p:first-child{
+  font-size:1.0125rem;font-weight:600;color:var(--on-light);
+}
+
+.about-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.75rem}
+
+.photo-placeholder{
+  width:100%;aspect-ratio:4/3.2;
+  background:#E0E0DC;border:2px dashed #C8C8C4;border-radius:var(--r);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.625rem;color:#B0B0AA;
+}
+.photo-placeholder svg{opacity:.4}
+.photo-placeholder span{
+  font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════
+   FEATURES
+═══════════════════════════════════════════════════════ */
+.features-section{
+  background:var(--bg-deep);
+  padding:var(--sp-sec) 0;text-align:center;
+}
+
+.feat-header{max-width:700px;margin:0 auto 3.5rem}
+
+.feat-h2{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:clamp(1.75rem,3.5vw,2.75rem);
+  font-weight:900;color:var(--on-dark);text-wrap:balance;
+  margin-bottom:1rem;
+}
+
+.feat-sub{
+  font-size:.875rem;font-weight:600;color:var(--accent);line-height:1.65;
+}
+
+.feat-rule{
+  width:56px;height:3px;background:var(--accent);
+  margin:1.25rem auto 0;border:none;
+}
+
+.feat-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2.75rem 3.5rem;max-width:860px;margin:0 auto 3.5rem;
+  text-align:left;
+}
+
+.feat-item{display:flex;align-items:flex-start;gap:1.1rem}
+
+.feat-icon-wrap{
+  width:44px;height:44px;flex-shrink:0;
+  background:rgba(196,18,48,.14);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--accent);
+}
+.feat-icon-wrap svg{width:22px;height:22px}
+
+.feat-text h3{
+  font-size:.9375rem;font-weight:700;color:var(--on-dark);
+  margin-bottom:.35rem;line-height:1.3;
+}
+.feat-text p{font-size:.84rem;color:var(--on-dark-2);line-height:1.66}
+
+/* ═══════════════════════════════════════════════════════
+   TESTIMONIALS
+═══════════════════════════════════════════════════════ */
+.testimonials-section{
+  background:var(--bg-surface);
+  padding:var(--sp-sec) 0;text-align:center;
+}
+
+.testi-h2{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:clamp(1.75rem,3.5vw,2.75rem);
+  font-weight:900;margin-bottom:2.5rem;
+}
+
+.testi-row{
+  display:flex;align-items:center;gap:1.5rem;
+  max-width:860px;margin:0 auto;
+}
+
+.carousel-btn{
+  width:46px;height:46px;flex-shrink:0;border-radius:50%;
+  background:var(--accent);border:none;color:#fff;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .18s;
+}
+.carousel-btn:hover{background:var(--accent-h)}
+
+.testi-track{flex:1;overflow:hidden}
+
+.testi-slide{display:none}
+.testi-slide.active{display:block}
+
+.testi-card{
+  background:#2A2A2A;border-top:5px solid var(--accent);
+  padding:3rem 3.5rem 2.5rem;
+}
+
+.quote-glyph{
+  display:block;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:4rem;line-height:.8;font-weight:700;
+  color:var(--accent);margin-bottom:1rem;user-select:none;
+}
+
+.testi-head{
+  font-size:.9375rem;font-weight:700;color:var(--on-dark);
+  line-height:1.45;margin-bottom:1.25rem;
+}
+
+.testi-body{
+  font-size:.85rem;color:rgba(255,255,255,.78);
+  line-height:1.82;margin-bottom:1.5rem;
+}
+
+.testi-name{font-size:.85rem;font-weight:700;color:var(--on-dark)}
+
+.testi-dots{
+  display:flex;justify-content:center;gap:.5rem;
+  margin-top:1.5rem;
+}
+.testi-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:rgba(255,255,255,.22);border:none;cursor:pointer;
+  transition:background .18s;padding:0;
+}
+.testi-dot.active{background:var(--accent)}
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════ */
+.site-footer{
+  background:#080808;
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:4rem 0 2rem;
+}
+
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:3rem;margin-bottom:3rem;
+}
+
+.footer-logo-ph{
+  width:150px;height:52px;
+  border:1px dashed rgba(255,255,255,.2);border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.64rem;font-weight:700;letter-spacing:.14em;
+  color:rgba(255,255,255,.28);text-transform:uppercase;
+  margin-bottom:1rem;
+}
+
+.footer-tag{
+  font-size:.85rem;color:rgba(255,255,255,.5);
+  line-height:1.72;max-width:230px;
+}
+
+.footer-col h4{
+  font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1.1rem;
+}
+.footer-col ul{display:flex;flex-direction:column;gap:.55rem}
+.footer-col ul a{
+  font-size:.85rem;color:rgba(255,255,255,.48);
+  transition:color .18s;
+}
+.footer-col ul a:hover{color:#fff}
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding-top:1.75rem;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.74rem;color:rgba(255,255,255,.28);gap:1rem;
+  flex-wrap:wrap;
+}
+
+/* ═══════════════════════════════════════════════════════
+   TRANSITIONS & ANIMATIONS  ·  premium
+═══════════════════════════════════════════════════════ */
+
+/* — Page-load curtain (two halves split apart) — */
+#curtain-top,#curtain-bottom{
+  position:fixed;left:0;right:0;z-index:9999;
+  background:#0D0D0D;pointer-events:none;
+}
+#curtain-top    { top:0;    height:50vh; }
+#curtain-bottom { bottom:0; height:50vh; }
+
+/* — Hero accent bar — */
+.hero-accent-line{
+  display:block;width:52px;height:3px;
+  background:var(--accent);
+  margin:0 auto 1.5rem;
+  transform:scaleX(0);transform-origin:center;
+}
+@keyframes bar-widen{
+  from{transform:scaleX(0)}
+  to  {transform:scaleX(1)}
+}
+.hero-accent-line.in{
+  animation:bar-widen .55s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* — Hero text clip-path reveal (fires after curtain) — */
+@keyframes clip-up{
+  from{clip-path:inset(0 0 110% 0);transform:translateY(18px)}
+  to  {clip-path:inset(0 0 -5%  0);transform:none}
+}
+.hero-content h1     { animation:clip-up .9s  cubic-bezier(.22,1,.36,1) both; opacity:0; }
+.hero-content .hero-sub { animation:clip-up .78s cubic-bezier(.22,1,.36,1) both; opacity:0; }
+.hero-content .btn   { animation:clip-up .68s cubic-bezier(.22,1,.36,1) both; opacity:0; }
+/* JS sets animation-delay once curtain duration is known */
+
+/* — Nav underline — */
+.main-nav a:not(.nav-cta){ position:relative; }
+.main-nav a:not(.nav-cta)::after{
+  content:'';
+  position:absolute;bottom:0;left:.9rem;right:.9rem;height:2px;
+  background:var(--accent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .22s cubic-bezier(.22,1,.36,1);
+}
+.main-nav a:not(.nav-cta):hover::after,
+.main-nav a:not(.nav-cta).active::after{transform:scaleX(1)}
+
+/* — Section heading clip-path reveal — */
+.reveal-heading{
+  clip-path:inset(0 0 110% 0);
+  transform:translateY(14px);
+  transition:clip-path .72s cubic-bezier(.22,1,.36,1),
+             transform   .72s cubic-bezier(.22,1,.36,1);
+}
+.reveal-heading.is-visible{clip-path:inset(0 0 -5% 0);transform:none}
+.reveal-heading.reveal-d1{transition-delay:100ms}
+
+/* — Scroll reveal (body content) — */
+.reveal{
+  opacity:0;transform:translateY(26px);
+  transition:opacity .65s cubic-bezier(.22,1,.36,1),
+             transform .65s cubic-bezier(.22,1,.36,1);
+}
+.reveal.is-visible{opacity:1;transform:none}
+.reveal-d1{transition-delay:110ms}
+.reveal-d2{transition-delay:220ms}
+
+/* — Stagger grid — */
+.stagger>*{
+  opacity:0;transform:translateY(20px);
+  transition:opacity .52s cubic-bezier(.22,1,.36,1),
+             transform .52s cubic-bezier(.22,1,.36,1);
+}
+.stagger.is-visible>*:nth-child(1){opacity:1;transform:none;transition-delay:  0ms}
+.stagger.is-visible>*:nth-child(2){opacity:1;transform:none;transition-delay: 80ms}
+.stagger.is-visible>*:nth-child(3){opacity:1;transform:none;transition-delay:160ms}
+.stagger.is-visible>*:nth-child(4){opacity:1;transform:none;transition-delay:240ms}
+.stagger.is-visible>*:nth-child(5){opacity:1;transform:none;transition-delay:320ms}
+.stagger.is-visible>*:nth-child(6){opacity:1;transform:none;transition-delay:400ms}
+
+/* — Service card shimmer + lift — */
+.svc-card{position:relative;overflow:hidden}
+.svc-card::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(115deg,
+    transparent 38%,
+    rgba(255,255,255,.055) 50%,
+    transparent 62%);
+  transform:translateX(-140%);
+  transition:transform .62s cubic-bezier(.22,1,.36,1);
+  pointer-events:none;
+}
+.svc-card:hover::before{transform:translateX(140%)}
+.svc-card:hover{
+  transform:translateY(-7px);
+  box-shadow:0 16px 48px rgba(196,18,48,.2),0 4px 16px rgba(0,0,0,.5);
+}
+
+/* — Area pin bounce — */
+.area-pin{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.area-item:hover .area-pin{transform:translateY(-7px)}
+
+/* — Feature icon micro — */
+.feat-icon-wrap svg{transition:transform .25s cubic-bezier(.22,1,.36,1)}
+.feat-item:hover .feat-icon-wrap svg{transform:scale(1.18) rotate(-5deg)}
+
+/* ═══════════════════════════════════════════════════════
+   SERVICE AREAS
+═══════════════════════════════════════════════════════ */
+.areas-section{
+  position:relative;
+  padding:var(--sp-sec) 0;
+  background:#0a0d14;
+  overflow:hidden;
+}
+.areas-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,#0a1020 0%,#0d1525 50%,#060a10 100%);
+  z-index:0;
+}
+.areas-section .wrap{position:relative;z-index:1;text-align:center}
+.areas-eyebrow{
+  font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1rem;
+}
+.areas-h2{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:clamp(1.7rem,3.5vw,2.5rem);font-weight:900;
+  color:var(--on-dark);margin-bottom:.75rem;line-height:1.15;
+}
+/* ── Trusted By ─────────────────────────────── */
+.trusted-section{
+  background:var(--bg-surface);
+  padding:clamp(3rem,5vw,5rem) 0;
+}
+.trusted-label{
+  text-align:center;
+  font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--on-dark-2);margin-bottom:2.75rem;
+}
+.brand-track{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:.85rem;
+}
+.brand-pill{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.52rem 1.35rem;border-radius:5px;
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size:.8rem;font-weight:800;letter-spacing:.04em;
+  white-space:nowrap;
+  transition:transform .22s cubic-bezier(.22,1,.36,1),
+             box-shadow .22s,opacity .22s;
+  opacity:.85;
+}
+.brand-pill:hover{
+  transform:translateY(-3px) scale(1.07);
+  opacity:1;
+  box-shadow:0 8px 22px rgba(0,0,0,.4);
+}
+
+.areas-sub{
+  font-size:.95rem;color:var(--on-dark-2);
+  max-width:560px;margin:0 auto 3rem;
+}
+.areas-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  max-width:840px;margin:0 auto;
+  border:1px solid rgba(255,255,255,.08);border-radius:4px;overflow:hidden;
+}
+.area-item{
+  padding:1.75rem 1.5rem;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+  transition:background .2s;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+}
+.area-item:hover{background:rgba(196,18,48,.08)}
+.area-pin{
+  width:28px;height:28px;color:var(--accent);flex-shrink:0;
+}
+.area-name{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:1rem;font-weight:900;letter-spacing:.03em;
+  color:var(--on-dark);text-transform:uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════════════════ */
+.faq-section{background:var(--bg-deep);padding:var(--sp-sec) 0}
+.faq-head{text-align:center;margin-bottom:3.5rem}
+.faq-eyebrow{
+  font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.9rem;
+}
+.faq-h2{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:900;line-height:1.12;
+}
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:2px}
+.faq-item{border:1px solid var(--border-dk);border-radius:3px;overflow:hidden}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
+  padding:1.3rem 1.75rem;width:100%;text-align:left;
+  background:var(--bg-surface);border:none;cursor:pointer;
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:.9rem;font-weight:900;letter-spacing:.02em;color:var(--on-dark);
+  transition:background .2s,color .2s;
+}
+.faq-q:hover{background:#2E2E2E;color:var(--accent)}
+.faq-item.open .faq-q{background:#2A2A2A;color:var(--accent)}
+.faq-icon{
+  flex-shrink:0;color:var(--accent);
+  transition:transform .32s cubic-bezier(.22,1,.36,1);
+}
+.faq-item.open .faq-icon{transform:rotate(180deg)}
+.faq-a{
+  max-height:0;overflow:hidden;background:var(--bg-surface);
+  transition:max-height .38s cubic-bezier(.22,1,.36,1);
+}
+.faq-item.open .faq-a{max-height:220px}
+.faq-a-inner{
+  padding:.4rem 1.75rem 1.5rem;
+  font-size:.9rem;color:var(--on-dark-2);line-height:1.78;
+  border-top:1px solid var(--border-dk);
+}
+
+/* ═══════════════════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════════════════ */
+.contact-section{
+  padding:var(--sp-sec) 0;
+  background:#F3F3F1;
+  color:#191919;
+}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1.1fr;
+  gap:5rem;align-items:start;
+}
+.contact-eyebrow{
+  font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1rem;
+}
+.contact-h2{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:clamp(1.7rem,3vw,2.25rem);font-weight:900;
+  color:#191919;margin-bottom:.9rem;line-height:1.15;
+}
+.contact-phone-hero{
+  display:block;
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:clamp(1.3rem,2.2vw,1.65rem);font-weight:900;
+  color:var(--accent);letter-spacing:.02em;
+  margin-bottom:1rem;
+  transition:color .15s;
+}
+.contact-phone-hero:hover{color:var(--accent-h)}
+.contact-tagline{
+  font-size:.92rem;color:#565656;
+  line-height:1.7;margin-bottom:2.25rem;max-width:390px;
+}
+.contact-detail-list{
+  display:flex;flex-direction:column;gap:1.1rem;
+  margin-bottom:2.5rem;
+}
+.contact-detail{
+  display:flex;align-items:flex-start;gap:.9rem;
+}
+.contact-detail-icon{
+  width:36px;height:36px;
+  background:var(--accent);border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.contact-detail-icon svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.contact-detail-body{}
+.contact-detail-label{
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:#888;margin-bottom:.2rem;
+}
+.contact-detail-value{
+  font-size:.9rem;color:#191919;font-weight:600;
+}
+.contact-detail-value a{color:inherit;transition:color .15s}
+.contact-detail-value a:hover{color:var(--accent)}
+
+/* Contact form */
+.contact-form{
+  display:flex;flex-direction:column;gap:1rem;
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:.35rem}
+.form-group label{
+  font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:#565656;
+}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  font-family:inherit;font-size:.875rem;
+  padding:.72rem .95rem;
+  background:#fff;
+  border:1.5px solid rgba(0,0,0,.14);
+  border-radius:3px;color:#191919;
+  outline:none;width:100%;
+  transition:border-color .18s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{resize:vertical;min-height:120px}
+.field-required{color:var(--accent);margin-left:.15em}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23565656' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .85rem center}
+.contact-submit{
+  align-self:flex-start;
+  padding:.82rem 2.2rem;
+  background:var(--accent);color:#fff;
+  font-family:inherit;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  border:none;border-radius:var(--r);cursor:pointer;
+  transition:background .2s,transform .15s;
+}
+.contact-submit:hover{background:var(--accent-h);transform:translateY(-1px)}
+.contact-submit:active{transform:none}
+
+/* ═══════════════════════════════════════════════════════
+   QUOTE POPUP MODAL
+═══════════════════════════════════════════════════════ */
+.quote-modal{
+  position:fixed;inset:0;z-index:200;
+  display:flex;align-items:center;justify-content:center;
+  padding:1.5rem;
+  opacity:0;visibility:hidden;
+  transition:opacity .35s ease,visibility 0s linear .35s;
+}
+.quote-modal.open{
+  opacity:1;visibility:visible;
+  transition:opacity .35s ease,visibility 0s linear 0s;
+}
+.quote-backdrop{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,.68);
+  backdrop-filter:blur(2px);
+}
+.quote-dialog{
+  position:relative;
+  width:100%;max-width:440px;max-height:90vh;overflow-y:auto;
+  background:#F3F3F1;color:#191919;
+  border-radius:6px;
+  box-shadow:0 30px 80px rgba(0,0,0,.5);
+  padding:2.6rem 2.4rem 2.4rem;
+  transform:scale(.92) translateY(14px);
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.quote-modal.open .quote-dialog{transform:scale(1) translateY(0)}
+.quote-close{
+  position:absolute;top:1rem;right:1rem;
+  width:32px;height:32px;border-radius:50%;
+  background:transparent;border:1.5px solid rgba(0,0,0,.14);
+  color:#565656;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .18s,color .18s,border-color .18s;
+}
+.quote-close:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.quote-eyebrow{
+  font-size:.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.7rem;
+}
+.quote-title{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  font-size:clamp(1.35rem,3vw,1.65rem);font-weight:900;line-height:1.15;
+  margin-bottom:.65rem;
+}
+.quote-sub{
+  font-size:.85rem;color:#565656;line-height:1.65;margin-bottom:1.6rem;
+}
+.quote-form{display:flex;flex-direction:column;gap:.9rem}
+.quote-form.hide{display:none}
+.quote-submit{width:100%;text-align:center}
+.quote-thanks{
+  display:none;
+  margin-top:1rem;padding:.9rem 1rem;
+  background:rgba(196,18,48,.08);border:1px solid rgba(196,18,48,.25);border-radius:4px;
+  font-size:.85rem;color:#191919;line-height:1.6;
+}
+.quote-thanks.show{display:block}
+.quote-dismiss{
+  display:block;margin:1rem auto 0;
+  background:none;border:none;
+  font-size:.75rem;color:#888;text-decoration:underline;
+  cursor:pointer;
+}
+.quote-dismiss:hover{color:var(--accent)}
+@media(max-width:480px){
+  .quote-dialog{padding:2.2rem 1.6rem 2rem}
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCROLL-TO-TOP
+═══════════════════════════════════════════════════════ */
+#scroll-top{
+  position:fixed;bottom:1.5rem;right:1.5rem;
+  width:42px;height:42px;
+  background:var(--accent);border:none;border-radius:3px;
+  color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .28s,background .18s;z-index:100;
+}
+#scroll-top.vis{opacity:1;pointer-events:auto}
+#scroll-top:hover{background:var(--accent-h)}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════ */
+@media(max-width:1100px){
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .feat-grid{grid-template-columns:1fr 1fr;gap:2rem}
+  .contact-grid{grid-template-columns:1fr;gap:3rem}
+}
+
+@media(max-width:720px){
+  .burger{display:flex}
+  .main-nav{
+    display:none;
+    position:fixed;inset:var(--nav-h) 0 auto;
+    background:rgba(8,8,8,.97);
+    flex-direction:column;align-items:flex-start;
+    padding:1rem 1.5rem 2rem;gap:0;
+    border-bottom:1px solid var(--border-dk);
+  }
+  .main-nav.open{display:flex}
+  .main-nav a{padding:.8rem 0;width:100%}
+  .main-nav .nav-cta{margin:.75rem 0 0;display:block;text-align:center}
+
+  .services-grid{grid-template-columns:1fr 1fr}
+  .areas-grid{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr}
+
+  .testi-card{padding:2rem 1.5rem}
+
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+
+@media(max-width:480px){
+  .services-grid{grid-template-columns:1fr}
+  .areas-grid{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:1fr}
+  .testi-row{gap:.75rem}
+  .carousel-btn{width:38px;height:38px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{transition-duration:0.01ms!important;animation-duration:0.01ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+<!-- Page-load curtain -->
+<div id="curtain-top"    aria-hidden="true"></div>
+<div id="curtain-bottom" aria-hidden="true"></div>
+
+<!-- ══════════════════════════════════════
+  HEADER
+══════════════════════════════════════ -->
+<header class="site-header" id="site-header">
+  <div class="wrap header-row">
+    <a href="#hero" class="logo-wrap" aria-label="Home">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 118" height="56" role="img" aria-label="MJAMV General Cleaning Services">
+        <defs><path id="mjamv-arc-h" d="M 15,90 A 160,160 0 0,1 265,90"/></defs>
+        <text font-family="Impact,'Arial Black',sans-serif" font-size="44" fill="#C41230" stroke="#C0C0C0" stroke-width="3" paint-order="stroke fill" letter-spacing="2">
+          <textPath href="#mjamv-arc-h" startOffset="50%" text-anchor="middle">MJAMV</textPath>
+        </text>
+        <text x="140" y="112" text-anchor="middle" font-family="Arial,'Helvetica Neue',sans-serif" font-size="17" font-weight="700" fill="white" letter-spacing="0.5">GENERAL CLEANING SERVICES</text>
+      </svg>
+    </a>
+
+    <button class="burger" id="burger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="main-nav" id="main-nav" aria-label="Main">
+      <a href="#hero" class="active">Home</a>
+      <a href="#services">Services</a>
+      <a href="#about">About Us</a>
+      <a href="#projects">Projects</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" class="nav-cta">Contact Us</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════
+  HERO
+══════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <canvas id="steam-canvas" aria-hidden="true"></canvas>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-content">
+    <span class="hero-accent-line" aria-hidden="true"></span>
+    <h1>Your Comfort,<br>Our Expertise.</h1>
+    <p class="hero-sub">
+      Heating, cooling, and air flow services<br>
+      in Your City and surrounding areas.
+    </p>
+    <a href="#contact" class="btn btn-red">Schedule a Service</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  SERVICES
+══════════════════════════════════════ -->
+<section class="services-section" id="services">
+  <div class="services-grid stagger">
+
+    <!-- Card 1 · Ocular Inspection -->
+    <div class="svc-card">
+      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="26" cy="26" r="18"/>
+        <line x1="38.8" y1="38.8" x2="57" y2="57"/>
+      </svg>
+      <div class="svc-name">Ocular Inspection</div>
+      <div class="svc-price-label">Starting At</div>
+      <div class="svc-price" data-target="1000">₱1,000</div>
+      <p class="svc-desc">On-site ocular inspection of your kitchen exhaust system to assess the scope of work before a final quote.</p>
+      <a href="#contact" class="svc-more">
+        Learn More
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
+      </a>
+    </div>
+
+    <!-- Card 2 · Kitchen Exhaust Cleaning -->
+    <div class="svc-card">
+      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <defs><clipPath id="kec-clip"><circle cx="32" cy="33" r="25"/></clipPath></defs>
+        <!-- Outer circle frame -->
+        <circle cx="32" cy="33" r="25"/>
+        <g clip-path="url(#kec-clip)">
+          <!-- Range hood duct (vertical pipe) -->
+          <rect x="27" y="7" width="10" height="7"/>
+          <!-- Hood body (trapezoid widening downward) -->
+          <path d="M 19,23 L 25,14 L 39,14 L 45,23 Z"/>
+          <!-- Counter / cabinet base -->
+          <rect x="6" y="40" width="52" height="20"/>
+          <!-- Cabinet center divider -->
+          <line x1="32" y1="40" x2="32" y2="60"/>
+          <!-- Cabinet door handles -->
+          <line x1="20" y1="47" x2="20" y2="51"/>
+          <line x1="44" y1="47" x2="44" y2="51"/>
+          <!-- Sink basin -->
+          <rect x="9" y="32" width="16" height="8" rx="1"/>
+          <!-- Faucet (L-shape) -->
+          <polyline points="18,32 18,26 23,26"/>
+          <!-- Stove burners (triangle arrangement) -->
+          <circle cx="37" cy="35" r="2.5"/>
+          <circle cx="46" cy="35" r="2.5"/>
+          <circle cx="41.5" cy="29" r="2.5"/>
+        </g>
+      </svg>
+      <div class="svc-name">Kitchen Exhaust<br>Cleaning</div>
+      <div class="svc-price-label">Starting At</div>
+      <div class="svc-price" data-target="6500">₱6,500</div>
+      <p class="svc-desc">Complete kitchen exhaust system cleaning — hoods, filters, ductwork, and rooftop blowers — degreased top to bottom to reduce fire risk and keep your ventilation running efficiently.</p>
+      <a href="#contact" class="svc-more">
+        Learn More
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
+      </a>
+    </div>
+
+    <!-- Card 3 · Minor Repairs -->
+    <div class="svc-card">
+      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <!-- House outline -->
+        <path d="M 8,29 L 32,9 L 56,29"/>
+        <path d="M 13,25 L 13,57 L 51,57 L 51,25"/>
+        <!-- Screwdriver -->
+        <path d="M 24,32 L 46,50"/>
+        <path d="M 20,26 Q 18,24 20,22 Q 22,20 24,22 Q 26,24 24,26 Q 22,28 20,26 Z"/>
+        <circle cx="48" cy="52" r="3"/>
+        <!-- Wrench -->
+        <path d="M 42,32 L 20,50"/>
+        <path d="M 44,26 L 40,30"/>
+        <rect x="17" y="48" width="8" height="5" rx="1.2" transform="rotate(-40 21 50.5)"/>
+      </svg>
+      <div class="svc-name">Minor Repairs</div>
+      <a href="#contact" class="svc-book">Book an appointment<br>to discuss pricing</a>
+      <p class="svc-desc">Minor exhaust system repairs, including motor belt timing adjustments, belt replacement, and motor replacement.</p>
+      <a href="#contact" class="svc-more">
+        Learn More
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7 2l4.5 4.5L7 11"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  ABOUT
+══════════════════════════════════════ -->
+<section class="about-section" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-copy reveal">
+        <div class="about-eyebrow">Who We Are</div>
+        <h2 class="about-h2 reveal-heading">Expert Service, Delivered By People Who Care</h2>
+        <p>Welcome to [Your Company], a family owned and operated business passionate about bringing comfort to yours.</p>
+        <p>As a close-knit HVAC company, we combine the warmth of family values with the expertise of industry professionals. Our journey began with a shared commitment to providing personalized heating, ventilation, and air conditioning solutions. From cozy homes to bustling businesses, we deliver a personal touch to every project, ensuring your comfort is our priority.</p>
+        <div class="about-actions">
+          <a href="#about"   class="btn btn-red">Learn More About Us</a>
+          <a href="#contact" class="btn btn-dim">Schedule Now</a>
+        </div>
+      </div>
+      <div class="about-image reveal reveal-d1">
+        <!-- Replace with: <img src="your-team-photo.jpg" alt="Our technician at work"> -->
+        <div class="photo-placeholder">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="#aaa" stroke-width="1.5" aria-hidden="true">
+            <rect x="4" y="9" width="44" height="34" rx="2"/>
+            <circle cx="20" cy="25" r="6"/>
+            <path d="M4 40l11-12 8 8 9-11 16 15"/>
+          </svg>
+          <span>Your Photo Here</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  TRUSTED BY
+══════════════════════════════════════ -->
+<section class="trusted-section">
+  <div class="wrap">
+    <p class="trusted-label reveal">Trusted By Leading Food Establishments</p>
+    <div class="brand-track stagger">
+      <span class="brand-pill" style="background:#C4172D;color:#fff">Shakey's</span>
+      <span class="brand-pill" style="background:#D95A10;color:#fff">Mang Inasal</span>
+      <span class="brand-pill" style="background:#CC0000;color:#fff">KFC</span>
+      <span class="brand-pill" style="background:#111111;color:#fff;border:1.5px solid #CC1122">Tokyo Tokyo</span>
+      <span class="brand-pill" style="background:#246B24;color:#fff">Greenwich</span>
+      <span class="brand-pill" style="background:#CC1E2A;color:#FFE000">Jollibee</span>
+      <span class="brand-pill" style="background:#1B5E5B;color:#fff">Mesa</span>
+      <span class="brand-pill" style="background:#003087;color:#fff">S&amp;R New York Style Pizza</span>
+      <span class="brand-pill" style="background:#CC1122;color:#fff">Hap Chan</span>
+      <span class="brand-pill" style="background:#1E1E1E;color:#E8C47A;border:1.5px solid #E8C47A">Marugame Udon</span>
+      <span class="brand-pill" style="background:#E8A000;color:#1A1A1A">Kangyupsalamat</span>
+      <span class="brand-pill" style="background:#E05800;color:#fff">Gerry's</span>
+      <span class="brand-pill" style="background:#8B1A1A;color:#fff">Ling Nam</span>
+      <span class="brand-pill" style="background:#CC1122;color:#fff">Chowking</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  FEATURES / WHY US
+══════════════════════════════════════ -->
+<section class="features-section" id="features">
+  <div class="wrap">
+    <div class="feat-header reveal">
+      <h2 class="feat-h2 reveal-heading">What You Can Expect From Us</h2>
+      <p class="feat-sub">Our team of skilled HVAC technicians are fully certified, customer focused, and will always have your best interests in mind.</p>
+      <hr class="feat-rule">
+    </div>
+
+    <div class="feat-grid stagger">
+
+      <div class="feat-item">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="1" y="4" width="22" height="16" rx="2"/>
+            <line x1="1" y1="10" x2="23" y2="10"/>
+          </svg>
+        </div>
+        <div class="feat-text">
+          <h3>Competitive Pricing</h3>
+          <p>Unbeatable comfort meets unbeatable prices — top-notch HVAC services affordable for everyone.</p>
+        </div>
+      </div>
+
+      <div class="feat-item">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <div class="feat-text">
+          <h3>Customer Focused</h3>
+          <p>Your satisfaction is our compass; our HVAC services revolve around your needs and preferences.</p>
+        </div>
+      </div>
+
+      <div class="feat-item">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <div class="feat-text">
+          <h3>Quality Work</h3>
+          <p>Elevate your comfort with our commitment to precision, excellence, and lasting HVAC solutions.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center">
+      <a href="#contact" class="btn btn-red">Book an Appointment</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  TESTIMONIALS
+══════════════════════════════════════ -->
+<section class="testimonials-section" id="testimonials">
+  <div class="wrap">
+    <h2 class="testi-h2 reveal-heading">What Our Customers Are Saying</h2>
+
+    <div class="testi-row reveal reveal-d1">
+      <button class="carousel-btn" id="prev-btn" aria-label="Previous testimonial">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>
+      </button>
+
+      <div class="testi-track" aria-live="polite">
+
+        <div class="testi-slide active">
+          <div class="testi-card">
+            <span class="quote-glyph" aria-hidden="true">"</span>
+            <div class="testi-head">My first recommendation for anyone looking to have work done on their heating and cooling systems.</div>
+            <p class="testi-body">"We hired [Your Company] to plan and install our heat pump and air conditioning system. We have a very large home and required a unique solution. After several quotes from other companies, we chose them. They offered a genuinely reasonable quote and completed the work in a truly professional and timely manner. Their work exceeded expectations and they have been true to their word on backing their work."</p>
+            <div class="testi-name">Francis N.</div>
+          </div>
+        </div>
+
+        <div class="testi-slide">
+          <div class="testi-card">
+            <span class="quote-glyph" aria-hidden="true">"</span>
+            <div class="testi-head">Professional, timely, and completely respectful of our home throughout the entire project.</div>
+            <p class="testi-body">"From the initial consultation to the final walkthrough, every member of their team was professional and courteous. They explained everything clearly, cleaned up thoroughly, and the system has been running flawlessly since day one. Cannot recommend them highly enough to anyone in need of HVAC work."</p>
+            <div class="testi-name">Sarah M.</div>
+          </div>
+        </div>
+
+        <div class="testi-slide">
+          <div class="testi-card">
+            <span class="quote-glyph" aria-hidden="true">"</span>
+            <div class="testi-head">Best decision we made — the energy savings alone have already paid back our investment.</div>
+            <p class="testi-body">"We had them retrofit our older home with a modern heat pump system. The team was knowledgeable, efficient, and went above and beyond to make sure everything was working perfectly before they left. Our energy bills dropped significantly and the house is more comfortable than it has ever been in 20 years."</p>
+            <div class="testi-name">David T.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="carousel-btn" id="next-btn" aria-label="Next testimonial">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
+      </button>
+    </div>
+
+    <div class="testi-dots" role="tablist" aria-label="Testimonial navigation">
+      <button class="testi-dot active" data-i="0" role="tab" aria-selected="true"  aria-label="Testimonial 1"></button>
+      <button class="testi-dot"        data-i="1" role="tab" aria-selected="false" aria-label="Testimonial 2"></button>
+      <button class="testi-dot"        data-i="2" role="tab" aria-selected="false" aria-label="Testimonial 3"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  SERVICE AREAS
+══════════════════════════════════════ -->
+<section class="areas-section" id="areas">
+  <div class="areas-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="areas-eyebrow reveal">Where We Work</div>
+    <h2 class="areas-h2 reveal-heading reveal-d1">Our Service Areas</h2>
+    <p class="areas-sub reveal reveal-d2">We proudly serve commercial kitchens and food establishments across Metro Manila and surrounding areas.</p>
+
+    <div class="areas-grid stagger">
+
+      <div class="area-item">
+        <svg class="area-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+          <circle cx="12" cy="9" r="2.5"/>
+        </svg>
+        <div class="area-name">Antipolo</div>
+      </div>
+
+      <div class="area-item">
+        <svg class="area-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+          <circle cx="12" cy="9" r="2.5"/>
+        </svg>
+        <div class="area-name">Makati</div>
+      </div>
+
+      <div class="area-item">
+        <svg class="area-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+          <circle cx="12" cy="9" r="2.5"/>
+        </svg>
+        <div class="area-name">Pasay</div>
+      </div>
+
+      <div class="area-item">
+        <svg class="area-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+          <circle cx="12" cy="9" r="2.5"/>
+        </svg>
+        <div class="area-name">Quezon City</div>
+      </div>
+
+      <div class="area-item">
+        <svg class="area-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+          <circle cx="12" cy="9" r="2.5"/>
+        </svg>
+        <div class="area-name">Marikina</div>
+      </div>
+
+      <div class="area-item">
+        <svg class="area-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+          <circle cx="12" cy="9" r="2.5"/>
+        </svg>
+        <div class="area-name">Pasig</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  FAQ
+══════════════════════════════════════ -->
+<section class="faq-section" id="faq">
+  <div class="wrap">
+
+    <div class="faq-head reveal">
+      <p class="faq-eyebrow">Have Questions?</p>
+      <h2 class="faq-h2 reveal-heading">Frequently Asked Questions</h2>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          What parts do cleaners wash?
+          <span class="faq-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            They clean the hood canopy, grease filters, interior ductwork, and the exhaust fan on the roof.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          How long does the service take?
+          <span class="faq-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Most jobs take 4 to 6 hours depending on system size and grease thickness.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          Can my own staff clean the system?
+          <span class="faq-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Staff can wipe down visible hood surfaces and wash filters, but deep cleaning of ducts and fans requires certified professionals to satisfy insurance and fire codes.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          What does "clean" mean?
+          <span class="faq-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Industry standards require exposed metal to be visible down to bare metal with no heavy grease layers remaining.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  CONTACT
+══════════════════════════════════════ -->
+<section class="contact-section" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <!-- Left: Info -->
+      <div class="contact-info reveal">
+        <div class="contact-eyebrow">Get In Touch</div>
+        <h2 class="contact-h2 reveal-heading">Contact Us</h2>
+        <a href="tel:+639001234567" class="contact-phone-hero">+63 900 123 4567</a>
+        <p class="contact-tagline">Ready to schedule a cleaning or have questions? Reach out and our team will get back to you promptly.</p>
+
+        <div class="contact-detail-list">
+
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-detail-body">
+              <div class="contact-detail-label">Email</div>
+              <div class="contact-detail-value"><a href="mailto:info@yourcompany.com">info@yourcompany.com</a></div>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.31 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="contact-detail-body">
+              <div class="contact-detail-label">Phone</div>
+              <div class="contact-detail-value"><a href="tel:+639001234567">+63 900 123 4567</a></div>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </div>
+            <div class="contact-detail-body">
+              <div class="contact-detail-label">Socials</div>
+              <div class="contact-detail-value"><a href="#contact">Follow us on Facebook</a></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="reveal reveal-d1">
+        <form class="contact-form" action="#" method="post" novalidate>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="fname" placeholder="Juan" required>
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="lname" placeholder="dela Cruz" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number <span class="field-required" aria-hidden="true">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="+63 900 123 4567" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="juan@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="service">Choose a Service</label>
+            <select id="service" name="service" required>
+              <option value="" disabled selected>Select a service…</option>
+              <option value="exhaust">Kitchen Exhaust Cleaning</option>
+              <option value="inspection">Ocular Inspection</option>
+              <option value="repairs">Minor Repairs</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="booking-date">Preferred Date</label>
+              <input type="date" id="booking-date" name="booking-date">
+            </div>
+            <div class="form-group">
+              <label for="booking-time">Preferred Time</label>
+              <input type="time" id="booking-time" name="booking-time">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us more about your needs…"></textarea>
+          </div>
+
+          <button type="submit" class="contact-submit">Send Message</button>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+  FOOTER
+══════════════════════════════════════ -->
+<footer class="site-footer" id="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 118" height="50" role="img" aria-label="MJAMV General Cleaning Services">
+          <defs><path id="mjamv-arc-f" d="M 15,90 A 160,160 0 0,1 265,90"/></defs>
+          <text font-family="Impact,'Arial Black',sans-serif" font-size="44" fill="#C41230" stroke="#C0C0C0" stroke-width="3" paint-order="stroke fill" letter-spacing="2">
+            <textPath href="#mjamv-arc-f" startOffset="50%" text-anchor="middle">MJAMV</textPath>
+          </text>
+          <text x="140" y="112" text-anchor="middle" font-family="Arial,'Helvetica Neue',sans-serif" font-size="17" font-weight="700" fill="white" letter-spacing="0.5">GENERAL CLEANING SERVICES</text>
+        </svg>
+        <p class="footer-tag">Heating, cooling, and air flow services in Your City and surrounding areas. Family owned and operated.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Heating &amp; Cooling</a></li>
+          <li><a href="#services">Gas Fitting</a></li>
+          <li><a href="#services">Refrigeration</a></li>
+          <li><a href="#services">Ventilation</a></li>
+          <li><a href="#services">Installation</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+17785551234">(778) 555-1234</a></li>
+          <li><a href="mailto:info@yourhvac.com">info@yourhvac.com</a></li>
+          <li><a href="#contact">Your City, BC</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 Your HVAC Company Ltd. All rights reserved.</span>
+      <span>Designed with care</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+  SCROLL-TO-TOP
+══════════════════════════════════════ -->
+<button id="scroll-top" aria-label="Back to top">
+  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M2.5 9.5L7.5 4.5L12.5 9.5"/>
+  </svg>
+</button>
+
+<!-- ══════════════════════════════════════
+  QUOTE POPUP MODAL
+══════════════════════════════════════ -->
+<div class="quote-modal" id="quote-modal" aria-hidden="true">
+  <div class="quote-backdrop" data-modal-close></div>
+  <div class="quote-dialog" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title">
+    <button class="quote-close" type="button" aria-label="Close" data-modal-close>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M1.5 1.5l11 11M12.5 1.5l-11 11"/></svg>
+    </button>
+    <p class="quote-eyebrow">Limited Slots This Week</p>
+    <h3 class="quote-title" id="quote-modal-title">Get a Free Quote</h3>
+    <p class="quote-sub">Tell us a bit about your kitchen exhaust system and we'll get back to you within 24 hours.</p>
+    <form class="quote-form" id="quote-form" novalidate>
+      <div class="form-group">
+        <label for="qf-name">Full Name</label>
+        <input type="text" id="qf-name" name="qf-name" placeholder="Juan dela Cruz" required>
+      </div>
+      <div class="form-group">
+        <label for="qf-phone">Phone Number <span class="field-required" aria-hidden="true">*</span></label>
+        <input type="tel" id="qf-phone" name="qf-phone" placeholder="+63 900 123 4567" required>
+      </div>
+      <div class="form-group">
+        <label for="qf-service">Choose a Service</label>
+        <select id="qf-service" name="qf-service" required>
+          <option value="" disabled selected>Select a service…</option>
+          <option value="exhaust">Kitchen Exhaust Cleaning</option>
+          <option value="inspection">Ocular Inspection</option>
+          <option value="repairs">Minor Repairs</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="qf-date">Preferred Date</label>
+          <input type="date" id="qf-date" name="qf-date">
+        </div>
+        <div class="form-group">
+          <label for="qf-time">Preferred Time</label>
+          <input type="time" id="qf-time" name="qf-time">
+        </div>
+      </div>
+      <button type="submit" class="contact-submit quote-submit">Request My Free Quote</button>
+    </form>
+    <p class="quote-thanks" id="quote-thanks">Thanks! We've received your request and will get back to you shortly.</p>
+    <button type="button" class="quote-dismiss" data-modal-close>No thanks, I'll browse first</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const noMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* ─── Booking date pickers: block past dates ─── */
+  const todayISO = new Date().toISOString().slice(0, 10);
+  document.querySelectorAll('#booking-date, #qf-date').forEach(el => {
+    el.min = todayISO;
+  });
+
+  /* ─── Page-load curtain ─── */
+  const ctTop = document.getElementById('curtain-top');
+  const ctBot = document.getElementById('curtain-bottom');
+  const CURTAIN_MS = noMotion ? 0 : 900;
+  if(noMotion){
+    ctTop.remove(); ctBot.remove();
+  } else {
+    /* delay one rAF so the browser paints the curtain before transitioning */
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const ease = 'cubic-bezier(.76,0,.24,1)';
+      ctTop.style.transition = `transform ${CURTAIN_MS}ms ${ease}`;
+      ctBot.style.transition = `transform ${CURTAIN_MS}ms ${ease}`;
+      ctTop.style.transform  = 'translateY(-100%)';
+      ctBot.style.transform  = 'translateY(100%)';
+    }));
+    setTimeout(() => { ctTop.remove(); ctBot.remove(); }, CURTAIN_MS + 200);
+  }
+
+  /* ─── Hero entrance (synced to curtain) ─── */
+  const LINE_DELAY   = CURTAIN_MS * .8;          /* accent bar  */
+  const H1_DELAY     = CURTAIN_MS * .9 + 80;     /* h1          */
+  const SUB_DELAY    = CURTAIN_MS * .9 + 260;    /* subtitle    */
+  const BTN_DELAY    = CURTAIN_MS * .9 + 460;    /* CTA button  */
+
+  const heroLine = document.querySelector('.hero-accent-line');
+  const heroH1   = document.querySelector('.hero-content h1');
+  const heroSub  = document.querySelector('.hero-content .hero-sub');
+  const heroBtn  = document.querySelector('.hero-content .btn');
+
+  if(noMotion){
+    [heroH1, heroSub, heroBtn].forEach(el => { if(el) el.style.opacity = '1'; });
+    if(heroLine) heroLine.classList.add('in');
+  } else {
+    setTimeout(() => heroLine?.classList.add('in'), LINE_DELAY);
+    setTimeout(() => {
+      if(heroH1)  { heroH1.style.animationDelay  = '0ms'; heroH1.style.opacity  = '1'; }
+    }, H1_DELAY);
+    setTimeout(() => {
+      if(heroSub) { heroSub.style.animationDelay = '0ms'; heroSub.style.opacity = '1'; }
+    }, SUB_DELAY);
+    setTimeout(() => {
+      if(heroBtn) { heroBtn.style.animationDelay = '0ms'; heroBtn.style.opacity = '1'; }
+    }, BTN_DELAY);
+  }
+
+
+  /* ─── Static background canvas (pipes) ─── */
+  const canvas = document.getElementById('hero-canvas');
+  function drawCanvas(){
+    const W = canvas.offsetWidth;
+    const H = canvas.offsetHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    ctx.fillStyle = '#111418';
+    ctx.fillRect(0, 0, W, H);
+
+    const pipes = [
+      [0,       H*.28, W*.42, H*.28, 44],
+      [W*.38,   H*.28, W*.38, H*.72, 44],
+      [W*.38,   H*.72, W,     H*.72, 44],
+      [W*.62,   0,     W*.62, H*.38, 30],
+      [W*.62,   H*.38, W,     H*.38, 30],
+      [W*.14,   0,     W*.14, H*.52, 22],
+      [W*.14,   H*.52, W*.38, H*.52, 22],
+      [W*.72,   H*.55, W,     H*.55, 18],
+      [0,       H*.84, W*.28, H*.84, 34],
+      [W*.28,   H*.84, W*.28, H,     34],
+      [W*.78,   0,     W*.78, H*.28, 26],
+      [W*.78,   H*.28, W,     H*.28, 26],
+    ];
+
+    pipes.forEach(([x0, y0, x1, y1, d]) => {
+      const isH = y0 === y1;
+      ctx.fillStyle   = 'rgba(255,255,255,.05)';
+      ctx.strokeStyle = 'rgba(255,255,255,.03)';
+      ctx.lineWidth = 1;
+      if(isH){ ctx.fillRect(x0, y0-d/2, x1-x0, d); ctx.strokeRect(x0, y0-d/2, x1-x0, d); }
+      else    { ctx.fillRect(x0-d/2, y0, d, y1-y0); ctx.strokeRect(x0-d/2, y0, d, y1-y0); }
+      [[x0,y0],[x1,y1]].forEach(([fx,fy]) => {
+        ctx.beginPath();
+        ctx.arc(fx, fy, d/2+7, 0, Math.PI*2);
+        ctx.fillStyle   = 'rgba(255,255,255,.034)';
+        ctx.strokeStyle = 'rgba(255,255,255,.048)';
+        ctx.lineWidth = 1.5;
+        ctx.fill(); ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(fx, fy, d/2+3, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(255,255,255,.045)';
+        ctx.fill();
+      });
+    });
+
+    /* warm glow at bottom (kitchen heat ambience) */
+    const glow = ctx.createRadialGradient(W*.5, H, 0, W*.5, H, W*.7);
+    glow.addColorStop(0,   'rgba(196,18,48,.07)');
+    glow.addColorStop(.6,  'rgba(120,8,24,.03)');
+    glow.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+
+    /* vignette */
+    const vig = ctx.createRadialGradient(W/2, H*.5, 0, W/2, H*.5, Math.max(W,H)*.65);
+    vig.addColorStop(0, 'rgba(14,14,14,.68)');
+    vig.addColorStop(1, 'rgba(5,5,5,.6)');
+    ctx.fillStyle = vig;
+    ctx.fillRect(0, 0, W, H);
+  }
+  drawCanvas();
+
+
+  /* ─── Steam particles canvas ─── */
+  const steam = document.getElementById('steam-canvas');
+  let sW, sH, sDpr;
+  const particles = [];
+
+  function resizeSteam(){
+    sW = steam.offsetWidth; sH = steam.offsetHeight;
+    sDpr = Math.min(window.devicePixelRatio || 1, 2);
+    steam.width  = sW * sDpr;
+    steam.height = sH * sDpr;
+  }
+
+  function tickSteam(){
+    const ctx = steam.getContext('2d');
+    ctx.clearRect(0, 0, steam.width, steam.height);
+
+    /* spawn */
+    if(!noMotion && particles.length < 28 && Math.random() < .055){
+      const life = 220 + Math.random() * 200;
+      particles.push({
+        x: sW * (.18 + Math.random() * .64),
+        y: sH * (.72 + Math.random() * .22),
+        r: Math.random() * 20 + 10,
+        vy: Math.random() * .42 + .18,
+        wobble: Math.random() * Math.PI * 2,
+        ws: Math.random() * .011 + .004,
+        life, maxLife: life,
+        maxA: Math.random() * .052 + .018,
+      });
+    }
+
+    for(let i = particles.length-1; i >= 0; i--){
+      const p = particles[i];
+      p.y -= p.vy; p.wobble += p.ws;
+      p.x += Math.sin(p.wobble) * .22;
+      if(--p.life <= 0){ particles.splice(i,1); continue; }
+
+      const t = p.life / p.maxLife;
+      const a = t < .15 ? (t/.15)*p.maxA : t > .7 ? ((t-.7)/.3) * p.maxA : p.maxA;
+      const sc = sDpr;
+      const g  = ctx.createRadialGradient(p.x*sc, p.y*sc, 0, p.x*sc, p.y*sc, p.r*sc);
+      g.addColorStop(0, `rgba(210,215,230,${a})`);
+      g.addColorStop(1, 'rgba(210,215,230,0)');
+      ctx.beginPath();
+      ctx.arc(p.x*sc, p.y*sc, p.r*sc, 0, Math.PI*2);
+      ctx.fillStyle = g;
+      ctx.fill();
+    }
+    requestAnimationFrame(tickSteam);
+  }
+  resizeSteam();
+  tickSteam();
+
+  window.addEventListener('resize', ()=>{ drawCanvas(); resizeSteam(); }, {passive:true});
+
+
+  /* ─── Mobile burger ─── */
+  const burger = document.getElementById('burger');
+  const nav    = document.getElementById('main-nav');
+  burger.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', String(open));
+  });
+  nav.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => {
+      nav.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded','false');
+    })
+  );
+
+
+  /* ─── Testimonial carousel ─── */
+  const slides = Array.from(document.querySelectorAll('.testi-slide'));
+  const dots   = Array.from(document.querySelectorAll('.testi-dot'));
+  let cur = 0, timer;
+  function goTo(idx){
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    dots[cur].setAttribute('aria-selected','false');
+    cur = (idx + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+    dots[cur].setAttribute('aria-selected','true');
+  }
+  function resetTimer(){ clearInterval(timer); timer = setInterval(()=>goTo(cur+1), 6500); }
+  document.getElementById('prev-btn').addEventListener('click', ()=>{ goTo(cur-1); resetTimer(); });
+  document.getElementById('next-btn').addEventListener('click', ()=>{ goTo(cur+1); resetTimer(); });
+  dots.forEach(d => d.addEventListener('click', ()=>{ goTo(+d.dataset.i); resetTimer(); }));
+  resetTimer();
+
+
+  /* ─── Scroll-to-top ─── */
+  const scrollBtn = document.getElementById('scroll-top');
+  window.addEventListener('scroll', ()=>{
+    scrollBtn.classList.toggle('vis', window.scrollY > 420);
+  }, {passive:true});
+  scrollBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+
+  /* ─── Nav active state on scroll ─── */
+  const anchors  = ['hero','services','about','features','testimonials','areas','contact'];
+  const navLinks = Array.from(document.querySelectorAll('.main-nav a:not(.nav-cta)'));
+  window.addEventListener('scroll', ()=>{
+    let active = 'hero';
+    anchors.forEach(id => {
+      const el = document.getElementById(id);
+      if(el && window.scrollY >= el.offsetTop - 120) active = id;
+    });
+    navLinks.forEach(a =>
+      a.classList.toggle('active', a.getAttribute('href') === '#'+active)
+    );
+  }, {passive:true});
+
+
+  /* ─── Scroll reveal (regular + heading clip-path) ─── */
+  if('IntersectionObserver' in window){
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting){ e.target.classList.add('is-visible'); ro.unobserve(e.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+    document.querySelectorAll('.reveal,.stagger,.reveal-heading')
+      .forEach(el => ro.observe(el));
+  } else {
+    document.querySelectorAll('.reveal,.stagger,.reveal-heading')
+      .forEach(el => el.classList.add('is-visible'));
+  }
+
+
+  /* ─── Pricing counter ─── */
+  function countUp(el, target, ms){
+    const t0 = performance.now();
+    (function step(now){
+      const p = Math.min((now - t0) / ms, 1);
+      const v = Math.round((1 - Math.pow(1-p, 3)) * target);
+      el.textContent = '₱' + v.toLocaleString();
+      if(p < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+  const priceEls = document.querySelectorAll('.svc-price[data-target]');
+  if('IntersectionObserver' in window && priceEls.length){
+    const priceRo = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          countUp(e.target, +e.target.dataset.target, 1100);
+          priceRo.unobserve(e.target);
+        }
+      });
+    }, {threshold:.6});
+    priceEls.forEach(el => priceRo.observe(el));
+  }
+
+
+  /* ─── Magnetic buttons ─── */
+  if(!noMotion){
+    document.querySelectorAll('.btn-red, .nav-cta, .contact-submit').forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transition = 'transform .08s linear, background .18s, box-shadow .18s';
+      });
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width  / 2) * .14;
+        const y = (e.clientY - r.top  - r.height / 2) * .14;
+        btn.style.transform = `translate(${x}px,${y}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transition = 'transform .4s cubic-bezier(.22,1,.36,1), background .18s, box-shadow .18s';
+        btn.style.transform  = '';
+      });
+    });
+  }
+
+
+  /* ── FAQ accordion ── */
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+
+  /* ── Auto quote popup ── */
+  const quoteModal = document.getElementById('quote-modal');
+  if (quoteModal) {
+    const quoteForm   = document.getElementById('quote-form');
+    const quoteThanks = document.getElementById('quote-thanks');
+    const SEEN_KEY = 'mjamv-quote-seen';
+
+    const openQuote = () => {
+      quoteModal.classList.add('open');
+      quoteModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      const firstField = quoteForm.querySelector('input');
+      if (firstField) setTimeout(() => firstField.focus(), 400);
+    };
+    const closeQuote = () => {
+      quoteModal.classList.remove('open');
+      quoteModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    if (!sessionStorage.getItem(SEEN_KEY)) {
+      sessionStorage.setItem(SEEN_KEY, '1');
+      setTimeout(openQuote, 2500);
+    }
+
+    quoteModal.querySelectorAll('[data-modal-close]').forEach(el => {
+      el.addEventListener('click', closeQuote);
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && quoteModal.classList.contains('open')) closeQuote();
+    });
+
+    quoteForm.addEventListener('submit', e => {
+      e.preventDefault();
+      quoteForm.classList.add('hide');
+      quoteThanks.classList.add('show');
+      setTimeout(closeQuote, 2200);
+    });
+  }
+
+})();
+</script>
