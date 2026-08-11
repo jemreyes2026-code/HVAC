@@ -1,55 +1,72 @@
+import { Link } from 'react-router-dom';
+import { SERVICES } from '../data/services.js';
+import Logo from './ui/Logo.jsx';
+
+const COLUMNS = [
+  {
+    title: 'Services',
+    links: SERVICES.map((s) => ({ label: s.name, to: `/services/${s.slug}` })),
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'About Us', to: '/#about' },
+      { label: 'Projects', to: '/#projects' },
+      { label: 'Reviews', to: '/#testimonials' },
+      { label: 'FAQ', to: '/#faq' },
+    ],
+  },
+  {
+    title: 'Contact',
+    links: [
+      { label: '+63 900 123 4567', href: 'tel:+639001234567' },
+      { label: 'info@yourcompany.com', href: 'mailto:info@yourcompany.com' },
+      { label: 'Metro Manila, Philippines', to: '/#areas' },
+    ],
+  },
+];
+
 export default function Footer() {
   return (
-    <footer className="site-footer" id="footer">
-      <div className="wrap">
-        <div className="footer-grid">
-
+    <footer id="footer" className="bg-ink text-white/70">
+      <div className="wrap py-14">
+        <div className="grid gap-10 md:grid-cols-4">
           <div>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 118" height="50" role="img" aria-label="MJAMV General Cleaning Services">
-              <defs><path id="mjamv-arc-f" d="M 15,90 A 160,160 0 0,1 265,90" /></defs>
-              <text fontFamily="Impact,'Arial Black',sans-serif" fontSize="44" fill="#C41230" stroke="#C0C0C0" strokeWidth="3" paintOrder="stroke fill" letterSpacing="2">
-                <textPath href="#mjamv-arc-f" startOffset="50%" textAnchor="middle">MJAMV</textPath>
-              </text>
-              <text x="140" y="112" textAnchor="middle" fontFamily="Arial,'Helvetica Neue',sans-serif" fontSize="17" fontWeight="700" fill="white" letterSpacing="0.5">GENERAL CLEANING SERVICES</text>
-            </svg>
-            <p className="footer-tag">Heating, cooling, and air flow services in Your City and surrounding areas. Family owned and operated.</p>
+            <div className="rounded-lg bg-white/95 p-3">
+              <Logo height={42} className="h-10 w-auto" />
+            </div>
+            <p className="mt-5 text-[0.9375rem] leading-relaxed">
+              Commercial kitchen exhaust cleaning across Metro Manila. Family owned and operated.
+            </p>
           </div>
 
-          <div className="footer-col">
-            <h4>Services</h4>
-            <ul>
-              <li><a href="#services">Heating &amp; Cooling</a></li>
-              <li><a href="#services">Gas Fitting</a></li>
-              <li><a href="#services">Refrigeration</a></li>
-              <li><a href="#services">Ventilation</a></li>
-              <li><a href="#services">Installation</a></li>
-            </ul>
-          </div>
-
-          <div className="footer-col">
-            <h4>Company</h4>
-            <ul>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#projects">Projects</a></li>
-              <li><a href="#testimonials">Reviews</a></li>
-              <li><a href="#faq">FAQ</a></li>
-            </ul>
-          </div>
-
-          <div className="footer-col">
-            <h4>Contact</h4>
-            <ul>
-              <li><a href="tel:+17785551234">(778) 555-1234</a></li>
-              <li><a href="mailto:info@yourhvac.com">info@yourhvac.com</a></li>
-              <li><a href="#contact">Your City, BC</a></li>
-            </ul>
-          </div>
-
+          {COLUMNS.map((col) => (
+            <div key={col.title}>
+              <h4 className="text-[0.9375rem] font-bold text-white">{col.title}</h4>
+              <ul className="mt-4 space-y-2.5">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    {link.to ? (
+                      <Link to={link.to} className="text-[0.9375rem] transition-colors duration-200 hover:text-white">
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a href={link.href} className="text-[0.9375rem] transition-colors duration-200 hover:text-white">
+                        {link.label}
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="footer-bottom">
-          <span>© 2025 Your HVAC Company Ltd. All rights reserved.</span>
-          <span>Designed with care</span>
+        <div className="mt-12 flex flex-col gap-2 border-t border-white/15 pt-6 text-[0.875rem] text-white/50 sm:flex-row sm:items-center sm:justify-between">
+          <span>
+            © {new Date().getFullYear()} MJAMV General Cleaning Services. All rights reserved.
+          </span>
+          <span>Clean systems, open kitchens.</span>
         </div>
       </div>
     </footer>

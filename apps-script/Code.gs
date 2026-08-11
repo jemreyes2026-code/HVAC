@@ -10,15 +10,41 @@
  *        - Who has access: Anyone
  *   5. Copy the deployment's Web app URL and put it in your .env file as
  *      VITE_GOOGLE_SCRIPT_URL (see .env.example).
- *   6. Whenever you change this script, you must create a NEW deployment
- *      (or "Manage deployments" > edit > new version) for changes to go live.
+ *   6. Whenever you change this script, you must create a NEW version
+ *      (Manage deployments > edit > New version > Deploy) for changes to go
+ *      live. Saving the file alone does not update the endpoint.
  */
 
 const SHEET_NAME = 'Form Submissions';
-const HEADERS = ['Timestamp', 'Form', 'Name', 'Phone', 'Email', 'Service', 'Preferred Date', 'Preferred Time', 'Message'];
+const HEADERS = [
+  'Timestamp',
+  'Form',
+  'Name',
+  'Phone',
+  'Email',
+  'Service',
+  'Preferred Date',
+  'Preferred Time',
+  'Message',
+];
+
+/**
+ * Open the deployment URL in a browser to confirm it is live. If you see the
+ * JSON below, the Web App is deployed and reachable.
+ */
+function doGet() {
+  return ContentService.createTextOutput(
+    JSON.stringify({ ok: true, message: 'MJAMV form endpoint is live. POST to submit.' })
+  ).setMimeType(ContentService.MimeType.JSON);
+}
 
 function doPost(e) {
+  // Two forms submitting at the same instant can otherwise compute the same
+  // "next row" and one overwrites the other. The lock serialises appends.
+  const lock = LockService.getScriptLock();
   try {
+    lock.waitLock(20000);
+
     const data = JSON.parse(e.postData.contents);
     const sheet = getOrCreateSheet();
 
@@ -34,13 +60,17 @@ function doPost(e) {
       data.message || '',
     ]);
 
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok: true }))
-      .setMimeType(ContentService.MimeType.JSON);
+    return ContentService.createTextOutput(JSON.stringify({ ok: true })).setMimeType(
+      ContentService.MimeType.JSON
+    );
   } catch (err) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok: false, error: String(err) }))
-      .setMimeType(ContentService.MimeType.JSON);
+    // Surfaces in Apps Script > Executions if a submission ever goes missing
+    console.error('Failed to append submission: ' + err);
+    return ContentService.createTextOutput(
+      JSON.stringify({ ok: false, error: String(err) })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
   }
 }
 
