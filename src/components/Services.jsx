@@ -1,85 +1,94 @@
+import { Link } from 'react-router-dom';
+import { SERVICES } from '../data/services.js';
 import { useCountUp } from '../hooks/useCountUp.js';
-import { useInView } from '../hooks/useInView.js';
+import Reveal from './ui/Reveal.jsx';
+import SectionHead from './ui/SectionHead.jsx';
+import ServiceIcon from './ui/ServiceIcon.jsx';
+
+function Price({ target }) {
+  const [ref, value] = useCountUp(target, 1100);
+  return (
+    <span ref={ref} className="text-3xl font-bold text-ink">
+      ₱{value.toLocaleString()}
+    </span>
+  );
+}
 
 function ArrowIcon() {
   return (
-    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M2 6.5h9M7 2l4.5 4.5L7 11" />
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M2 7h9M7.5 3.5L11 7l-3.5 3.5" />
     </svg>
   );
 }
 
-function ServicePrice({ target }) {
-  const [ref, value] = useCountUp(target, 1100);
-  return (
-    <div className="svc-price" ref={ref}>₱{value.toLocaleString()}</div>
-  );
-}
-
 export default function Services() {
-  const [gridRef, gridVisible] = useInView();
-
   return (
-    <section className="services-section" id="services">
-      <div className={`services-grid stagger${gridVisible ? ' is-visible' : ''}`} ref={gridRef}>
+    <section id="services" className="section">
+      <div className="wrap">
+        <SectionHead
+          eyebrow="Our Services"
+          title="What we do"
+          lead="Three services covering the full life of a commercial kitchen exhaust system."
+        />
 
-        {/* Card 1 · Ocular Inspection */}
-        <div className="svc-card">
-          <svg className="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <circle cx="26" cy="26" r="18" />
-            <line x1="38.8" y1="38.8" x2="57" y2="57" />
-          </svg>
-          <div className="svc-name">Ocular Inspection</div>
-          <div className="svc-price-label">Starting At</div>
-          <ServicePrice target={1000} />
-          <p className="svc-desc">On-site ocular inspection of your kitchen exhaust system to assess the scope of work before a final quote.</p>
-          <a href="#contact" className="svc-more">Learn More <ArrowIcon /></a>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {SERVICES.map((service, i) => (
+            <Reveal key={service.slug} delay={i * 100}>
+              <div
+                className={`card flex h-full flex-col p-7 hover:shadow-card-hover ${
+                  service.featured ? 'border-crimson/30 ring-1 ring-crimson/20' : ''
+                }`}
+              >
+                {service.featured && (
+                  <span className="mb-4 inline-flex w-fit rounded-full bg-crimson-tint px-3 py-1 text-[0.75rem] font-bold uppercase tracking-wide text-crimson">
+                    Most requested
+                  </span>
+                )}
+
+                <span className="h-12 w-12 text-crimson">
+                  <ServiceIcon slug={service.slug} className="h-full w-full" />
+                </span>
+
+                <h3 className="mt-5 text-xl">{service.name}</h3>
+
+                <p className="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-ink-soft">
+                  {service.cardDesc}
+                </p>
+
+                <div className="mt-6 border-t border-paper-line pt-5">
+                  {service.price ? (
+                    <>
+                      <span className="block text-[0.8125rem] text-ink-faint">Starting at</span>
+                      <span className="mt-1 block">
+                        <Price target={service.price} />
+                      </span>
+                    </>
+                  ) : (
+                    <span className="block text-[0.9375rem] text-ink-soft">
+                      Priced after inspection
+                    </span>
+                  )}
+
+                  <Link
+                    to={`/services/${service.slug}`}
+                    className={`mt-5 w-full ${service.featured ? 'btn-primary' : 'btn-secondary'}`}
+                  >
+                    Learn More
+                    <ArrowIcon />
+                  </Link>
+
+                  <Link
+                    to="/#contact"
+                    className="mt-3 flex w-full items-center justify-center text-[0.9375rem] font-medium text-crimson hover:text-crimson-hover"
+                  >
+                    Book an appointment
+                  </Link>
+                </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
-
-        {/* Card 2 · Kitchen Exhaust Cleaning */}
-        <div className="svc-card">
-          <svg className="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <defs><clipPath id="kec-clip"><circle cx="32" cy="33" r="25" /></clipPath></defs>
-            <circle cx="32" cy="33" r="25" />
-            <g clipPath="url(#kec-clip)">
-              <rect x="27" y="7" width="10" height="7" />
-              <path d="M 19,23 L 25,14 L 39,14 L 45,23 Z" />
-              <rect x="6" y="40" width="52" height="20" />
-              <line x1="32" y1="40" x2="32" y2="60" />
-              <line x1="20" y1="47" x2="20" y2="51" />
-              <line x1="44" y1="47" x2="44" y2="51" />
-              <rect x="9" y="32" width="16" height="8" rx="1" />
-              <polyline points="18,32 18,26 23,26" />
-              <circle cx="37" cy="35" r="2.5" />
-              <circle cx="46" cy="35" r="2.5" />
-              <circle cx="41.5" cy="29" r="2.5" />
-            </g>
-          </svg>
-          <div className="svc-name">Kitchen Exhaust<br />Cleaning</div>
-          <div className="svc-price-label">Starting At</div>
-          <ServicePrice target={6500} />
-          <p className="svc-desc">Complete kitchen exhaust system cleaning — hoods, filters, ductwork, and rooftop blowers — degreased top to bottom to reduce fire risk and keep your ventilation running efficiently.</p>
-          <a href="#contact" className="svc-more">Learn More <ArrowIcon /></a>
-        </div>
-
-        {/* Card 3 · Minor Repairs */}
-        <div className="svc-card">
-          <svg className="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M 8,29 L 32,9 L 56,29" />
-            <path d="M 13,25 L 13,57 L 51,57 L 51,25" />
-            <path d="M 24,32 L 46,50" />
-            <path d="M 20,26 Q 18,24 20,22 Q 22,20 24,22 Q 26,24 24,26 Q 22,28 20,26 Z" />
-            <circle cx="48" cy="52" r="3" />
-            <path d="M 42,32 L 20,50" />
-            <path d="M 44,26 L 40,30" />
-            <rect x="17" y="48" width="8" height="5" rx="1.2" transform="rotate(-40 21 50.5)" />
-          </svg>
-          <div className="svc-name">Minor Repairs</div>
-          <a href="#contact" className="svc-book">Book an appointment<br />to discuss pricing</a>
-          <p className="svc-desc">Minor exhaust system repairs, including motor belt timing adjustments, belt replacement, and motor replacement.</p>
-          <a href="#contact" className="svc-more">Learn More <ArrowIcon /></a>
-        </div>
-
       </div>
     </section>
   );

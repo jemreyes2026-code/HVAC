@@ -1,40 +1,38 @@
-import { useInView } from '../hooks/useInView.js';
+import Reveal from './ui/Reveal.jsx';
+import SectionHead from './ui/SectionHead.jsx';
 
 const AREAS = ['Antipolo', 'Makati', 'Pasay', 'Quezon City', 'Marikina', 'Pasig'];
 
-function PinIcon() {
-  return (
-    <svg className="area-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-      <circle cx="12" cy="9" r="2.5" />
-    </svg>
-  );
-}
-
 export default function ServiceAreas() {
-  const [eyebrowRef, eyebrowVisible] = useInView();
-  const [h2Ref, h2Visible] = useInView();
-  const [subRef, subVisible] = useInView();
-  const [gridRef, gridVisible] = useInView();
-
   return (
-    <section className="areas-section" id="areas">
-      <div className="areas-bg" aria-hidden="true"></div>
+    <section id="areas" className="section border-y border-paper-line bg-paper-alt">
       <div className="wrap">
-        <div className={`areas-eyebrow reveal${eyebrowVisible ? ' is-visible' : ''}`} ref={eyebrowRef}>Where We Work</div>
-        <div ref={h2Ref}>
-          <h2 className={`areas-h2 reveal-heading reveal-d1${h2Visible ? ' is-visible' : ''}`}>Our Service Areas</h2>
-        </div>
-        <p className={`areas-sub reveal reveal-d2${subVisible ? ' is-visible' : ''}`} ref={subRef}>
-          We proudly serve commercial kitchens and food establishments across Metro Manila and surrounding areas.
-        </p>
+        <SectionHead
+          eyebrow="Where We Work"
+          title="Our service areas"
+          lead="We serve commercial kitchens and food establishments across Metro Manila and the surrounding areas. Not on the list? Ask anyway — we travel for scheduled contracts."
+        />
 
-        <div className={`areas-grid stagger${gridVisible ? ' is-visible' : ''}`} ref={gridRef}>
-          {AREAS.map((area) => (
-            <div className="area-item" key={area}>
-              <PinIcon />
-              <div className="area-name">{area}</div>
-            </div>
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+          {AREAS.map((area, i) => (
+            <Reveal key={area} delay={i * 70}>
+              <div className="card flex flex-col items-center gap-3 p-5 text-center hover:shadow-card-hover">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-6 w-6 text-crimson"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                  <circle cx="12" cy="9" r="2.5" />
+                </svg>
+                <span className="font-medium text-ink">{area}</span>
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>

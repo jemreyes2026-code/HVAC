@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { submitToSheet } from '../lib/submitToSheet.js';
+import { submitLead } from '../lib/submitLead.js';
+import Field from './ui/Field.jsx';
 
 const SEEN_KEY = 'mjamv-quote-seen';
 
 export default function QuoteModal() {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
-  const formRef = useRef(null);
   const firstFieldRef = useRef(null);
 
   const closeQuote = () => setOpen(false);
@@ -23,7 +23,7 @@ export default function QuoteModal() {
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     if (open) {
-      const t = setTimeout(() => firstFieldRef.current?.focus(), 400);
+      const t = setTimeout(() => firstFieldRef.current?.focus(), 300);
       return () => clearTimeout(t);
     }
   }, [open]);
@@ -43,15 +43,13 @@ export default function QuoteModal() {
 
     setStatus('sending');
     try {
-      await submitToSheet({
-        form: 'Quote Popup',
+      await submitLead('Quote Popup', {
         name: data['qf-name'] || '',
         phone: data['qf-phone'] || '',
-        email: '',
         service: data['qf-service'] || '',
         date: data['qf-date'] || '',
         time: data['qf-time'] || '',
-        message: '',
+        source: 'quote-form',
       });
       setStatus('sent');
       setTimeout(closeQuote, 2200);
@@ -61,59 +59,104 @@ export default function QuoteModal() {
     }
   };
 
-  return (
-    <div className={`quote-modal${open ? ' open' : ''}`} id="quote-modal" aria-hidden={!open}>
-      <div className="quote-backdrop" onClick={closeQuote}></div>
-      <div className="quote-dialog" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title">
-        <button className="quote-close" type="button" aria-label="Close" onClick={closeQuote}>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M1.5 1.5l11 11M12.5 1.5l-11 11" /></svg>
-        </button>
-        <p className="quote-eyebrow">Limited Slots This Week</p>
-        <h3 className="quote-title" id="quote-modal-title">Get a Free Quote</h3>
-        <p className="quote-sub">Tell us a bit about your kitchen exhaust system and we'll get back to you within 24 hours.</p>
+  if (!open) return null;
 
-        {status !== 'sent' && (
-          <form className="quote-form" ref={formRef} onSubmit={handleSubmit} noValidate>
-            <div className="form-group">
-              <label htmlFor="qf-name">Full Name</label>
-              <input type="text" id="qf-name" name="qf-name" placeholder="Juan dela Cruz" required ref={firstFieldRef} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="qf-phone">Phone Number <span className="field-required" aria-hidden="true">*</span></label>
-              <input type="tel" id="qf-phone" name="qf-phone" placeholder="+63 900 123 4567" required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="qf-service">Choose a Service</label>
-              <select id="qf-service" name="qf-service" required defaultValue="">
-                <option value="" disabled>Select a service…</option>
+  return (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-ink/60" onClick={closeQuote} aria-hidden="true" />
+
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="quote-modal-title"
+        className="relative max-h-[88dvh] w-full max-w-lg overflow-y-auto rounded-xl bg-white p-7 shadow-card-hover sm:p-8"
+      >
+        <button
+          type="button"
+          aria-label="Close"
+          onClick={closeQuote}
+          className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full text-ink-faint transition-colors duration-200 hover:bg-paper-alt hover:text-ink"
+        >
+          <svg width="15" height="15" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+            <path d="M1.5 1.5l11 11M12.5 1.5l-11 11" />
+          </svg>
+        </button>
+
+        <p className="eyebrow">Limited Slots This Week</p>
+        <h3 id="quote-modal-title" className="mt-2 text-2xl">
+          Get a Free Quote
+        </h3>
+        <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft">
+          Tell us about your kitchen exhaust system and we will get back to you within 24 hours.
+        </p>
+
+        {status !== 'sent' ? (
+          <form onSubmit={handleSubmit} noValidate className="mt-6">
+            <Field label="Full Name" htmlFor="qf-name">
+              <input
+                ref={firstFieldRef}
+                type="text"
+                id="qf-name"
+                name="qf-name"
+                placeholder="Juan dela Cruz"
+                required
+                className="field"
+              />
+            </Field>
+
+            <Field label="Phone Number" htmlFor="qf-phone" required className="mt-5">
+              <input type="tel" id="qf-phone" name="qf-phone" placeholder="+63 900 123 4567" required className="field" />
+            </Field>
+
+            <Field label="Choose a Service" htmlFor="qf-service" className="mt-5">
+              <select id="qf-service" name="qf-service" required defaultValue="" className="field">
+                <option value="" disabled>
+                  Select a service…
+                </option>
                 <option value="exhaust">Kitchen Exhaust Cleaning</option>
                 <option value="inspection">Ocular Inspection</option>
                 <option value="repairs">Minor Repairs</option>
               </select>
+            </Field>
+
+            <div className="mt-5 grid gap-5 sm:grid-cols-2">
+              <Field label="Preferred Date" htmlFor="qf-date">
+                <input
+                  type="date"
+                  id="qf-date"
+                  name="qf-date"
+                  min={new Date().toISOString().slice(0, 10)}
+                  className="field"
+                />
+              </Field>
+              <Field label="Preferred Time" htmlFor="qf-time">
+                <input type="time" id="qf-time" name="qf-time" className="field" />
+              </Field>
             </div>
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="qf-date">Preferred Date</label>
-                <input type="date" id="qf-date" name="qf-date" min={new Date().toISOString().slice(0, 10)} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="qf-time">Preferred Time</label>
-                <input type="time" id="qf-time" name="qf-time" />
-              </div>
-            </div>
+
             {status === 'error' && (
-              <p className="form-status error">Something went wrong. Please try again or call us directly.</p>
+              <p className="mt-5 rounded-lg border border-crimson/30 bg-crimson-tint px-4 py-3 text-[0.9375rem] text-crimson-hover">
+                Something went wrong. Please try again or call us directly.
+              </p>
             )}
-            <button type="submit" className="contact-submit quote-submit" disabled={status === 'sending'}>
+
+            <button type="submit" disabled={status === 'sending'} className="btn-primary mt-6 w-full disabled:opacity-60">
               {status === 'sending' ? 'Sending…' : 'Request My Free Quote'}
             </button>
           </form>
+        ) : (
+          <p className="mt-6 rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-3 text-[0.9375rem] text-emerald-800">
+            Thanks! We have received your request and will get back to you shortly.
+          </p>
         )}
 
-        <p className={`quote-thanks${status === 'sent' ? ' show' : ''}`}>
-          Thanks! We've received your request and will get back to you shortly.
-        </p>
-        <button type="button" className="quote-dismiss" onClick={closeQuote}>No thanks, I'll browse first</button>
+        <button
+          type="button"
+          onClick={closeQuote}
+          className="mt-4 block w-full text-center text-[0.875rem] text-ink-faint transition-colors duration-200 hover:text-ink-soft"
+        >
+          No thanks, I&apos;ll browse first
+        </button>
       </div>
     </div>
   );

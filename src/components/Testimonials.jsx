@@ -1,86 +1,69 @@
-import { useEffect, useRef, useState } from 'react';
-import { useInView } from '../hooks/useInView.js';
+import Reveal from './ui/Reveal.jsx';
+import SectionHead from './ui/SectionHead.jsx';
 
+/**
+ * PLACEHOLDER CONTENT — structural samples showing what a real quote looks like
+ * in this layout. These are NOT real customer reviews. Replace each entry with
+ * an actual, attributable client quote (with permission) before launch, and
+ * delete the "Sample content" badge in the markup below once you do.
+ */
 const TESTIMONIALS = [
   {
-    head: 'My first recommendation for anyone looking to have work done on their heating and cooling systems.',
-    body: '"We hired [Your Company] to plan and install our heat pump and air conditioning system. We have a very large home and required a unique solution. After several quotes from other companies, we chose them. They offered a genuinely reasonable quote and completed the work in a truly professional and timely manner. Their work exceeded expectations and they have been true to their word on backing their work."',
-    name: 'Francis N.',
+    body: 'A short quote about the work — what shape the system was in, how the crew handled scheduling, and what changed afterward. Replace with a real client quote.',
+    name: 'Client name',
+    role: 'Role, restaurant group',
   },
   {
-    head: 'Professional, timely, and completely respectful of our home throughout the entire project.',
-    body: '"From the initial consultation to the final walkthrough, every member of their team was professional and courteous. They explained everything clearly, cleaned up thoroughly, and the system has been running flawlessly since day one. Cannot recommend them highly enough to anyone in need of HVAC work."',
-    name: 'Sarah M.',
+    body: 'A second quote, ideally about reliability or turnaround — something a prospective client would find reassuring. Replace with a real client quote.',
+    name: 'Client name',
+    role: 'Role, restaurant group',
   },
   {
-    head: 'Best decision we made — the energy savings alone have already paid back our investment.',
-    body: '"We had them retrofit our older home with a modern heat pump system. The team was knowledgeable, efficient, and went above and beyond to make sure everything was working perfectly before they left. Our energy bills dropped significantly and the house is more comfortable than it has ever been in 20 years."',
-    name: 'David T.',
+    body: 'A third quote tying the work to a measurable outcome — a passed inspection, an insurer requirement met, airflow restored. Replace with a real client quote.',
+    name: 'Client name',
+    role: 'Role, restaurant group',
   },
 ];
 
-export default function Testimonials() {
-  const [headingRef, headingVisible] = useInView();
-  const [rowRef, rowVisible] = useInView();
-  const [cur, setCur] = useState(0);
-  const timerRef = useRef(null);
-
-  const goTo = (idx) => setCur(((idx % TESTIMONIALS.length) + TESTIMONIALS.length) % TESTIMONIALS.length);
-
-  const resetTimer = () => {
-    clearInterval(timerRef.current);
-    timerRef.current = setInterval(() => setCur((c) => (c + 1) % TESTIMONIALS.length), 6500);
-  };
-
-  useEffect(() => {
-    resetTimer();
-    return () => clearInterval(timerRef.current);
-  }, []);
-
-  const withReset = (fn) => () => { fn(); resetTimer(); };
-
+function Stars() {
   return (
-    <section className="testimonials-section" id="testimonials">
+    <span className="flex gap-0.5 text-crimson" aria-label="5 out of 5">
+      {[0, 1, 2, 3, 4].map((i) => (
+        <svg key={i} width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8-5.3-2.8-5.3 2.8 1-5.8L1.5 7.7l5.9-.9z" />
+        </svg>
+      ))}
+    </span>
+  );
+}
+
+export default function Testimonials() {
+  return (
+    <section id="testimonials" className="section">
       <div className="wrap">
-        <div ref={headingRef}>
-          <h2 className={`testi-h2 reveal-heading${headingVisible ? ' is-visible' : ''}`}>
-            What Our Customers Are Saying
-          </h2>
-        </div>
+        <SectionHead eyebrow="Testimonials" title="What our customers are saying" />
 
-        <div className={`testi-row reveal reveal-d1${rowVisible ? ' is-visible' : ''}`} ref={rowRef}>
-          <button className="carousel-btn" aria-label="Previous testimonial" onClick={withReset(() => goTo(cur - 1))}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5" /></svg>
-          </button>
+        <Reveal className="mt-4 flex justify-center">
+          {/* Delete this badge once real quotes replace the samples above */}
+          <span className="rounded-full border border-amber-300 bg-amber-50 px-3 py-1 text-[0.75rem] font-bold uppercase tracking-wide text-amber-700">
+            Sample content — replace before launch
+          </span>
+        </Reveal>
 
-          <div className="testi-track" aria-live="polite">
-            {TESTIMONIALS.map((t, i) => (
-              <div className={`testi-slide${i === cur ? ' active' : ''}`} key={t.name}>
-                <div className="testi-card">
-                  <span className="quote-glyph" aria-hidden="true">&ldquo;</span>
-                  <div className="testi-head">{t.head}</div>
-                  <p className="testi-body">{t.body}</p>
-                  <div className="testi-name">{t.name}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <button className="carousel-btn" aria-label="Next testimonial" onClick={withReset(() => goTo(cur + 1))}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5" /></svg>
-          </button>
-        </div>
-
-        <div className="testi-dots" role="tablist" aria-label="Testimonial navigation">
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
           {TESTIMONIALS.map((t, i) => (
-            <button
-              key={t.name}
-              className={`testi-dot${i === cur ? ' active' : ''}`}
-              role="tab"
-              aria-selected={i === cur}
-              aria-label={`Testimonial ${i + 1}`}
-              onClick={withReset(() => goTo(i))}
-            />
+            <Reveal key={t.body} delay={i * 100}>
+              <figure className="card h-full p-7">
+                <Stars />
+                <blockquote className="mt-4 text-[0.9375rem] leading-relaxed text-ink-soft">
+                  {t.body}
+                </blockquote>
+                <figcaption className="mt-6 border-t border-paper-line pt-4">
+                  <span className="block font-medium text-ink">{t.name}</span>
+                  <span className="block text-[0.875rem] text-ink-faint">{t.role}</span>
+                </figcaption>
+              </figure>
+            </Reveal>
           ))}
         </div>
       </div>
