@@ -61,37 +61,32 @@ export default function Features() {
   const [ref, isVisible] = useInView({ threshold: 0.1 });
 
   return (
-    <section className="section-light relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
-
-      <div ref={ref} className="wrap relative z-10">
+    <section id="product" className="section">
+      <div ref={ref} className="wrap">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <p className={`eyebrow !text-accent mb-4 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            Features
-          </p>
-          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-dark mb-5 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <h2 className={`text-3xl sm:text-4xl lg:text-5xl tracking-tight mb-5 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Everything your back office needs
           </h2>
-          <p className={`text-lg text-text-dark-secondary leading-relaxed transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <p className={`text-lg text-warm-secondary leading-relaxed transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Lassie handles the repetitive admin work that consumes your team&apos;s
-            time, so they can focus on what matters most — your patients.
+            time, so they can focus on what matters most.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {FEATURES.map((feature, i) => (
             <div
               key={feature.title}
-              className={`card-light group cursor-default transition-all duration-700 ${
+              className={`group rounded-2xl bg-cream-light border border-warm-border p-7 cursor-default transition-all duration-700 hover:bg-white hover:shadow-card hover:-translate-y-0.5 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
-              style={{ transitionDelay: `${200 + i * 100}ms` }}
+              style={{ transitionDelay: `${150 + i * 80}ms` }}
             >
-              <div className="w-12 h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-5 transition-all duration-300 group-hover:bg-accent group-hover:text-white group-hover:shadow-glow">
+              <div className="w-11 h-11 rounded-xl bg-cream-dark text-warm flex items-center justify-center mb-5 transition-all duration-300 group-hover:bg-warm group-hover:text-white">
                 {feature.icon}
               </div>
-              <h3 className="text-lg font-semibold text-text-dark mb-2">{feature.title}</h3>
-              <p className="text-sm text-text-dark-secondary leading-relaxed">{feature.description}</p>
+              <h3 className="text-lg font-serif mb-2">{feature.title}</h3>
+              <p className="text-sm text-warm-secondary leading-relaxed">{feature.description}</p>
             </div>
           ))}
         </div>

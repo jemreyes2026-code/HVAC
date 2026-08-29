@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
 
 const NAV_LINKS = [
-  { label: 'Product', href: '#product' },
-  { label: 'How it Works', href: '#how-it-works' },
   { label: 'Company', href: '#company' },
-  { label: 'Pricing', href: '#pricing' },
+  { label: 'Demo', href: '#demo' },
 ];
 
 export default function Navbar() {
@@ -27,64 +25,56 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'glass shadow-lg shadow-black/10'
-          : 'bg-transparent'
-      }`}
-    >
-      <nav className="wrap flex items-center justify-between h-[72px]">
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
+      <nav
+        className={`flex items-center gap-1 rounded-full px-2 py-1.5 transition-all duration-300 ${
+          scrolled
+            ? 'bg-white/90 backdrop-blur-xl shadow-nav'
+            : 'bg-cream-light/80 backdrop-blur-xl shadow-nav'
+        }`}
+      >
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-            </svg>
-          </div>
-          <span className="text-xl font-bold text-white tracking-tight">Lassie</span>
+        <a href="#" className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-warm/5 transition-colors">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#1F1E1C">
+            <path d="M12 2C9.5 2 7.5 4 7.5 6.5C7.5 8.5 8.5 10 10 11C8 11.5 6.5 13.5 6.5 15.5C6.5 18 8.5 20 11 20H13C15.5 20 17.5 18 17.5 15.5C17.5 13.5 16 11.5 14 11C15.5 10 16.5 8.5 16.5 6.5C16.5 4 14.5 2 12 2Z" />
+            <circle cx="9" cy="7" r="2.5" fill="#1F1E1C" />
+            <circle cx="15" cy="7" r="2.5" fill="#1F1E1C" />
+            <circle cx="9" cy="15.5" r="2.5" fill="#1F1E1C" />
+            <circle cx="15" cy="15.5" r="2.5" fill="#1F1E1C" />
+          </svg>
         </a>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-sm font-medium text-text-secondary hover:text-white transition-colors duration-200"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
+        {/* Nav Links */}
+        {NAV_LINKS.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            className="hidden sm:flex items-center px-4 py-2 rounded-full text-sm font-medium text-warm hover:bg-warm/5 transition-colors"
+          >
+            {link.label}
+          </a>
+        ))}
 
-        {/* Desktop CTA */}
-        <div className="hidden md:flex items-center gap-3">
-          <a href="#contact" className="text-sm font-medium text-text-secondary hover:text-white transition-colors duration-200">
-            Log in
-          </a>
-          <a href="#contact" className="btn-primary text-sm !py-2.5 !px-5">
-            Get Started
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-        </div>
+        {/* Login */}
+        <a
+          href="#contact"
+          className="flex items-center px-4 py-2 rounded-full text-sm font-medium text-warm-secondary hover:bg-warm/5 transition-colors"
+        >
+          Login
+        </a>
 
         {/* Mobile Menu Button */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden w-10 h-10 flex items-center justify-center text-white"
+          className="sm:hidden w-10 h-10 flex items-center justify-center rounded-full text-warm hover:bg-warm/5 transition-colors"
           aria-label="Toggle menu"
         >
           {mobileOpen ? (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
           ) : (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M3 12h18M3 6h18M3 18h18" />
             </svg>
           )}
@@ -92,32 +82,29 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Menu */}
-      <div
-        className={`md:hidden absolute top-[72px] left-0 right-0 glass transition-all duration-300 overflow-hidden ${
-          mobileOpen ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'
-        }`}
-      >
-        <div className="wrap py-6 flex flex-col gap-4">
-          {NAV_LINKS.map((link) => (
+      {mobileOpen && (
+        <div className="sm:hidden fixed inset-0 top-[72px] bg-cream/95 backdrop-blur-xl z-40">
+          <div className="flex flex-col items-center gap-4 pt-12">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className="text-lg font-medium text-warm"
+              >
+                {link.label}
+              </a>
+            ))}
             <a
-              key={link.label}
-              href={link.href}
+              href="#contact"
               onClick={() => setMobileOpen(false)}
-              className="text-base font-medium text-text-secondary hover:text-white transition-colors py-2"
+              className="text-lg font-medium text-warm-secondary"
             >
-              {link.label}
-            </a>
-          ))}
-          <div className="pt-4 border-t border-dark-border flex flex-col gap-3">
-            <a href="#contact" className="text-base font-medium text-text-secondary hover:text-white transition-colors py-2">
-              Log in
-            </a>
-            <a href="#contact" className="btn-primary text-center">
-              Get Started
+              Login
             </a>
           </div>
         </div>
-      </div>
+      )}
     </header>
   );
 }
