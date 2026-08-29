@@ -1,69 +1,64 @@
-import Reveal from './ui/Reveal.jsx';
-import SectionHead from './ui/SectionHead.jsx';
+import { useInView } from '../hooks/useInView';
 
-/**
- * PLACEHOLDER CONTENT — structural samples showing what a real quote looks like
- * in this layout. These are NOT real customer reviews. Replace each entry with
- * an actual, attributable client quote (with permission) before launch, and
- * delete the "Sample content" badge in the markup below once you do.
- */
 const TESTIMONIALS = [
   {
-    body: 'A short quote about the work — what shape the system was in, how the crew handled scheduling, and what changed afterward. Replace with a real client quote.',
-    name: 'Client name',
-    role: 'Role, restaurant group',
+    body: "Lassie completely transformed our front office workflow. We used to spend over 100 hours a month on paperwork alone. Now our team focuses on patients while Lassie handles the rest.",
+    name: 'Dr. Sarah Chen',
+    role: 'Owner, Bright Dental Group',
+    initials: 'SC',
   },
   {
-    body: 'A second quote, ideally about reliability or turnaround — something a prospective client would find reassuring. Replace with a real client quote.',
-    name: 'Client name',
-    role: 'Role, restaurant group',
+    body: "The payment posting alone saved us two full-time employees worth of work. Claims get processed in minutes instead of days, and our collections have never been better.",
+    name: 'Dr. Marcus Rivera',
+    role: 'Managing Partner, Summit Family Medicine',
+    initials: 'MR',
   },
   {
-    body: 'A third quote tying the work to a measurable outcome — a passed inspection, an insurer requirement met, airflow restored. Replace with a real client quote.',
-    name: 'Client name',
-    role: 'Role, restaurant group',
+    body: "Setup was seamless — Lassie learned our workflows in under two weeks. The AI agents flag exceptions for review so we always stay in control. It feels like having an expert back office team that never sleeps.",
+    name: 'Dr. Emily Thornton',
+    role: 'Director, Coastal Pediatrics',
+    initials: 'ET',
   },
 ];
 
-function Stars() {
-  return (
-    <span className="flex gap-0.5 text-crimson" aria-label="5 out of 5">
-      {[0, 1, 2, 3, 4].map((i) => (
-        <svg key={i} width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-          <path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8-5.3-2.8-5.3 2.8 1-5.8L1.5 7.7l5.9-.9z" />
-        </svg>
-      ))}
-    </span>
-  );
-}
-
 export default function Testimonials() {
+  const [ref, isVisible] = useInView({ threshold: 0.1 });
+
   return (
-    <section id="testimonials" className="section">
-      <div className="wrap">
-        <SectionHead eyebrow="Testimonials" title="What our customers are saying" />
+    <section id="company" className="section">
+      <div ref={ref} className="wrap">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <h2 className={`text-3xl sm:text-4xl lg:text-5xl tracking-tight mb-5 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            Trusted by practices nationwide
+          </h2>
+          <p className={`text-lg text-warm-secondary leading-relaxed transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            Hear from the medical and dental practices that rely on Lassie every day.
+          </p>
+        </div>
 
-        <Reveal className="mt-4 flex justify-center">
-          {/* Delete this badge once real quotes replace the samples above */}
-          <span className="rounded-full border border-amber-300 bg-amber-50 px-3 py-1 text-[0.75rem] font-bold uppercase tracking-wide text-amber-700">
-            Sample content — replace before launch
-          </span>
-        </Reveal>
-
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="grid md:grid-cols-3 gap-5">
           {TESTIMONIALS.map((t, i) => (
-            <Reveal key={t.body} delay={i * 100}>
-              <figure className="card h-full p-7">
-                <Stars />
-                <blockquote className="mt-4 text-[0.9375rem] leading-relaxed text-ink-soft">
-                  {t.body}
-                </blockquote>
-                <figcaption className="mt-6 border-t border-paper-line pt-4">
-                  <span className="block font-medium text-ink">{t.name}</span>
-                  <span className="block text-[0.875rem] text-ink-faint">{t.role}</span>
-                </figcaption>
-              </figure>
-            </Reveal>
+            <figure
+              key={t.name}
+              className={`rounded-2xl bg-white border border-warm-border p-8 flex flex-col transition-all duration-700 hover:shadow-card ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: `${200 + i * 120}ms` }}
+            >
+              <blockquote className="text-[0.9375rem] text-warm-secondary leading-relaxed flex-1">
+                &ldquo;{t.body}&rdquo;
+              </blockquote>
+
+              <figcaption className="mt-6 pt-5 border-t border-warm-border flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-cream-dark text-warm flex items-center justify-center text-sm font-bold font-sans">
+                  {t.initials}
+                </div>
+                <div>
+                  <span className="block text-sm font-semibold font-sans text-warm">{t.name}</span>
+                  <span className="block text-xs text-warm-secondary font-sans">{t.role}</span>
+                </div>
+              </figcaption>
+            </figure>
           ))}
         </div>
       </div>

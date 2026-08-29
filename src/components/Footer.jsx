@@ -1,60 +1,78 @@
-import { Link } from 'react-router-dom';
-import { SERVICES } from '../data/services.js';
-import Logo from './ui/Logo.jsx';
-
 const COLUMNS = [
   {
-    title: 'Services',
-    links: SERVICES.map((s) => ({ label: s.name, to: `/services/${s.slug}` })),
+    title: 'Product',
+    links: [
+      { label: 'Features', href: '#product' },
+      { label: 'Demo', href: '#demo' },
+      { label: 'Security', href: '#' },
+      { label: 'Integrations', href: '#' },
+    ],
   },
   {
     title: 'Company',
     links: [
-      { label: 'About Us', to: '/#about' },
-      { label: 'Projects', to: '/#projects' },
-      { label: 'Reviews', to: '/#testimonials' },
-      { label: 'FAQ', to: '/#faq' },
+      { label: 'About', href: '#company' },
+      { label: 'Careers', href: '#' },
+      { label: 'Blog', href: '#' },
+      { label: 'Press', href: '#' },
+      { label: 'Contact', href: '#contact' },
     ],
   },
   {
-    title: 'Contact',
+    title: 'Resources',
     links: [
-      { label: '+63 900 123 4567', href: 'tel:+639001234567' },
-      { label: 'info@yourcompany.com', href: 'mailto:info@yourcompany.com' },
-      { label: 'Metro Manila, Philippines', to: '/#areas' },
+      { label: 'Help Center', href: '#' },
+      { label: 'Documentation', href: '#' },
+      { label: 'API Reference', href: '#' },
+      { label: 'Status', href: '#' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Privacy Policy', href: '#' },
+      { label: 'Terms of Service', href: '#' },
+      { label: 'HIPAA', href: '#' },
+      { label: 'BAA', href: '#' },
     ],
   },
 ];
 
 export default function Footer() {
   return (
-    <footer id="footer" className="bg-ink text-white/70">
-      <div className="wrap py-14">
-        <div className="grid gap-10 md:grid-cols-4">
-          <div>
-            <div className="rounded-lg bg-white/95 p-3">
-              <Logo height={42} className="h-10 w-auto" />
-            </div>
-            <p className="mt-5 text-[0.9375rem] leading-relaxed">
-              Commercial kitchen exhaust cleaning across Metro Manila. Family owned and operated.
+    <footer id="contact" className="border-t border-warm-border">
+      <div className="wrap pt-16 pb-8">
+        <div className="grid gap-10 md:grid-cols-6">
+          {/* Brand */}
+          <div className="md:col-span-2">
+            <a href="#" className="flex items-center gap-2.5 group">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#1F1E1C" className="transition-transform duration-300 group-hover:scale-110">
+                <circle cx="9" cy="7" r="2.5" />
+                <circle cx="15" cy="7" r="2.5" />
+                <circle cx="9" cy="15.5" r="2.5" />
+                <circle cx="15" cy="15.5" r="2.5" />
+              </svg>
+              <span className="text-xl font-serif text-warm tracking-tight">Lassie</span>
+            </a>
+            <p className="mt-4 text-sm text-warm-secondary leading-relaxed max-w-xs">
+              AI that runs the doctor&apos;s office. Autonomous agents that handle the
+              administrative work so your team can focus on patients.
             </p>
           </div>
 
+          {/* Link Columns */}
           {COLUMNS.map((col) => (
             <div key={col.title}>
-              <h4 className="text-[0.9375rem] font-bold text-white">{col.title}</h4>
-              <ul className="mt-4 space-y-2.5">
+              <h4 className="text-sm font-semibold font-sans text-warm mb-4">{col.title}</h4>
+              <ul className="space-y-2.5">
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    {link.to ? (
-                      <Link to={link.to} className="text-[0.9375rem] transition-colors duration-200 hover:text-white">
-                        {link.label}
-                      </Link>
-                    ) : (
-                      <a href={link.href} className="text-[0.9375rem] transition-colors duration-200 hover:text-white">
-                        {link.label}
-                      </a>
-                    )}
+                    <a
+                      href={link.href}
+                      className="text-sm text-warm-secondary hover:text-warm transition-colors duration-200"
+                    >
+                      {link.label}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -62,11 +80,9 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-white/15 pt-6 text-[0.875rem] text-white/50 sm:flex-row sm:items-center sm:justify-between">
-          <span>
-            © {new Date().getFullYear()} MJAMV General Cleaning Services. All rights reserved.
-          </span>
-          <span>Clean systems, open kitchens.</span>
+        <div className="mt-14 flex flex-col gap-3 border-t border-warm-border pt-6 text-sm text-warm-tertiary sm:flex-row sm:items-center sm:justify-between">
+          <span>&copy; {new Date().getFullYear()} Lassie AI, Inc. All rights reserved.</span>
+          <span>Built for healthcare practices.</span>
         </div>
       </div>
     </footer>
