@@ -1,68 +1,100 @@
-import Reveal from './ui/Reveal.jsx';
-import SectionHead from './ui/SectionHead.jsx';
+import { useInView } from '../hooks/useInView';
 
 const FEATURES = [
   {
-    title: 'Priced Before We Start',
-    desc: 'An ocular inspection sets the scope, so the number you approve is the number you pay. No surprises once the panels come off.',
+    title: 'Payment Posting',
+    description: 'Automatically post insurance payments and patient payments into your practice management system with line-level accuracy.',
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="1" y="4" width="22" height="16" rx="2.5" />
-        <line x1="1" y1="10" x2="23" y2="10" />
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
       </svg>
     ),
   },
   {
-    title: 'Cleaned Around Your Hours',
-    desc: 'We work the gap between close and prep, so most systems are back online before your first delivery arrives the next morning.',
+    title: 'Claim Follow-ups',
+    description: 'Track outstanding claims and automatically follow up with payers, resubmitting with corrected information when needed.',
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="9.5" />
-        <path d="M12 6.5V12l3.5 2.5" />
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
       </svg>
     ),
   },
   {
-    title: 'Cleaned To Bare Metal',
-    desc: 'The standard is visible metal with no heavy grease left behind — the same bar your fire inspector and insurer measure against.',
+    title: 'EFT Reconciliation',
+    description: 'Match electronic fund transfers to claims and EOBs, ensuring every deposit is accounted for and discrepancies are flagged.',
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M12 2.5l8 3.5v6c0 4.5-3.2 7.9-8 9.5-4.8-1.6-8-5-8-9.5v-6z" />
-        <path d="M8.6 12.2l2.4 2.4 4.4-4.6" />
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /><polyline points="17 6 23 6 23 12" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Payer Enrollments',
+    description: 'Handle new payer enrollments and credentialing paperwork so your practice can accept more insurance plans, faster.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Appointment Confirmations',
+    description: 'Confirm, reschedule, and manage patient appointments automatically — reducing no-shows and keeping your schedule full.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Reporting & Analytics',
+    description: "Get real-time visibility into your practice's financial health with automated reports on collections, aging, and productivity.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 12a9 9 0 11-6.219-8.56" /><polyline points="21 3 21 12 12 12" />
       </svg>
     ),
   },
 ];
 
 export default function Features() {
-  return (
-    <section id="features" className="section border-y border-paper-line bg-paper-alt">
-      <div className="wrap">
-        <SectionHead
-          eyebrow="Why Choose Us"
-          title="What you can expect from us"
-          lead="Commercial kitchens cannot close for a week. Everything below exists because of that."
-        />
+  const [ref, isVisible] = useInView({ threshold: 0.1 });
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {FEATURES.map((feat, i) => (
-            <Reveal key={feat.title} delay={i * 100}>
-              <div className="card h-full p-7 text-center">
-                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-crimson-tint text-crimson">
-                  <span className="h-6 w-6">{feat.icon}</span>
-                </span>
-                <h3 className="mt-5 text-lg">{feat.title}</h3>
-                <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft">{feat.desc}</p>
-              </div>
-            </Reveal>
-          ))}
+  return (
+    <section className="section-light relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
+
+      <div ref={ref} className="wrap relative z-10">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <p className={`eyebrow !text-accent mb-4 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            Features
+          </p>
+          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-dark mb-5 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            Everything your back office needs
+          </h2>
+          <p className={`text-lg text-text-dark-secondary leading-relaxed transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            Lassie handles the repetitive admin work that consumes your team&apos;s
+            time, so they can focus on what matters most — your patients.
+          </p>
         </div>
 
-        <Reveal delay={150} className="mt-10 text-center">
-          <a href="#contact" className="btn-primary">
-            Book an Appointment
-          </a>
-        </Reveal>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {FEATURES.map((feature, i) => (
+            <div
+              key={feature.title}
+              className={`card-light group cursor-default transition-all duration-700 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: `${200 + i * 100}ms` }}
+            >
+              <div className="w-12 h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-5 transition-all duration-300 group-hover:bg-accent group-hover:text-white group-hover:shadow-glow">
+                {feature.icon}
+              </div>
+              <h3 className="text-lg font-semibold text-text-dark mb-2">{feature.title}</h3>
+              <p className="text-sm text-text-dark-secondary leading-relaxed">{feature.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

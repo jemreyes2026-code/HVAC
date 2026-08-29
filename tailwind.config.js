@@ -4,58 +4,85 @@ export default {
   theme: {
     extend: {
       colors: {
-        /**
-         * Warm neutral palette. The five supplied swatches are marked below;
-         * the two `ink` mid-tones are derived slightly darker than the supplied
-         * #7A746A so body text clears WCAG AA (4.5:1) on the cream background —
-         * #7A746A itself lands at 4.04:1, which is why it's reserved for
-         * dividers and decorative work as `stone`.
-         */
-        paper: {
-          DEFAULT: '#F3EFE6', // supplied — page background
-          alt: '#E2DFD6', //     supplied — alternating sections
-          line: '#CFC9BC', //    derived  — borders
+        dark: {
+          DEFAULT: '#0A0B0D',
+          card: '#131416',
+          border: 'rgba(255,255,255,0.08)',
+          muted: '#1A1B1E',
         },
-        stone: '#B9B2A5', //     supplied — dividers, decorative rules
-        ink: {
-          DEFAULT: '#1F1E1C', // supplied — headings, footer ground
-          muted: '#7A746A', //   supplied — large/decorative text only
-          faint: '#6E6862', //   derived  — small labels (4.79:1)
-          soft: '#5F594F', //    derived  — body copy (6.04:1)
+        light: {
+          DEFAULT: '#FFFFFF',
+          alt: '#F7F7F8',
+          muted: '#F0F0F2',
         },
-        crimson: {
-          DEFAULT: '#C41230', // brand accent, matches the logo mark
-          hover: '#A30E26',
-          tint: '#F5E4E2',
-          // Brand crimson only reaches 2.75:1 on the near-black header, which
-          // fails AA. This lighter tint clears it at 4.67:1 and is used ONLY
-          // on dark grounds, so the accent stays one colour family.
-          light: '#E8536B',
+        accent: {
+          DEFAULT: '#22C55E',
+          hover: '#16A34A',
+          glow: 'rgba(34,197,94,0.15)',
+          soft: 'rgba(34,197,94,0.1)',
         },
-        /**
-         * Cards and the header sit on a warm off-white rather than pure #FFF,
-         * which reads harsh against cream. Overriding `white` themes every
-         * existing `bg-white` / `text-white` utility in one place.
-         */
-        white: '#FBF9F4',
+        text: {
+          primary: '#FFFFFF',
+          secondary: '#A1A1AA',
+          tertiary: '#71717A',
+          dark: '#18181B',
+          'dark-secondary': '#52525B',
+        },
+        border: {
+          light: '#E4E4E7',
+        },
       },
       fontFamily: {
-        sans: ['Satoshi', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
-        // Warm-tinted shadows — neutral gray shadows go muddy over cream
-        card: '0 1px 2px rgba(31,30,28,0.05), 0 8px 24px -14px rgba(31,30,28,0.20)',
-        'card-hover': '0 2px 4px rgba(31,30,28,0.07), 0 16px 34px -16px rgba(31,30,28,0.26)',
-        header: '0 1px 3px rgba(31,30,28,0.07)',
+        card: '0 1px 3px rgba(0,0,0,0.08), 0 8px 32px -8px rgba(0,0,0,0.12)',
+        'card-hover': '0 4px 12px rgba(0,0,0,0.1), 0 16px 48px -12px rgba(0,0,0,0.18)',
+        glow: '0 0 40px rgba(34,197,94,0.15)',
+        'dark-card': '0 1px 3px rgba(0,0,0,0.3), 0 8px 32px -8px rgba(0,0,0,0.5)',
       },
       keyframes: {
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(24px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        'slide-in-right': {
+          '0%': { opacity: '0', transform: 'translateX(20px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-8px)' },
+        },
+        pulse: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.6' },
+        },
         marquee: {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(-50%)' },
         },
+        'activity-in': {
+          '0%': { opacity: '0', transform: 'translateY(-10px) scale(0.98)' },
+          '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+        },
       },
       animation: {
-        marquee: 'marquee 46s linear infinite',
+        'fade-up': 'fade-up 0.6s ease-out forwards',
+        'fade-in': 'fade-in 0.5s ease-out forwards',
+        'slide-in-right': 'slide-in-right 0.5s ease-out forwards',
+        float: 'float 6s ease-in-out infinite',
+        pulse: 'pulse 2s ease-in-out infinite',
+        marquee: 'marquee 40s linear infinite',
+        'activity-in': 'activity-in 0.4s ease-out forwards',
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'hero-gradient': 'linear-gradient(135deg, #0A0B0D 0%, #131416 50%, #0A0B0D 100%)',
       },
     },
   },

@@ -1,27 +1,29 @@
-import { Route, Routes } from 'react-router-dom';
-import Header from './components/Header.jsx';
+import Navbar from './components/Navbar.jsx';
+import Hero from './components/Hero.jsx';
+import LogoBar from './components/LogoBar.jsx';
+import ActivityFeed from './components/ActivityFeed.jsx';
+import Features from './components/Features.jsx';
+import HowItWorks from './components/HowItWorks.jsx';
+import Stats from './components/Stats.jsx';
+import Testimonials from './components/Testimonials.jsx';
+import CTA from './components/CTA.jsx';
 import Footer from './components/Footer.jsx';
-import ScrollTop from './components/ScrollTop.jsx';
-import QuoteModal from './components/QuoteModal.jsx';
-import ScrollRestoration from './components/ScrollRestoration.jsx';
-import HomePage from './pages/HomePage.jsx';
-import ServicePage from './pages/ServicePage.jsx';
 
 export default function App() {
   return (
     <>
-      <ScrollRestoration />
-      <Header />
+      <Navbar />
       <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/services/:slug" element={<ServicePage />} />
-          <Route path="*" element={<HomePage />} />
-        </Routes>
+        <Hero />
+        <LogoBar />
+        <ActivityFeed />
+        <Features />
+        <HowItWorks />
+        <Stats />
+        <Testimonials />
+        <CTA />
       </main>
       <Footer />
-      <ScrollTop />
-      <QuoteModal />
     </>
   );
 }
