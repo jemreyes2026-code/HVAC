@@ -1,0 +1,151 @@
+@config "../tailwind.config.js";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --palette-paper: 15 15 15;
+    --palette-surface: 29 29 29;
+    --palette-line: 68 68 68;
+    --palette-stone: 145 145 145;
+    --palette-ink: 255 255 255;
+    --palette-faint: 187 187 187;
+    --palette-soft: 211 211 211;
+    --palette-tint: 59 36 35;
+    --palette-accent: 255 129 120;
+  }
+
+  /* Each page alternates sections; form panels always use the light palette. */
+  main > section:nth-of-type(even),
+  .palette-light {
+    --palette-paper: 255 255 255;
+    --palette-surface: 255 255 255;
+    --palette-line: 218 218 218;
+    --palette-stone: 118 118 118;
+    --palette-ink: 15 15 15;
+    --palette-faint: 102 102 102;
+    --palette-soft: 77 77 77;
+    --palette-tint: 253 237 235;
+    --palette-accent: 183 10 0;
+    color-scheme: light;
+  }
+
+  .palette-cream {
+    --palette-paper: 243 239 230;
+    --palette-surface: 251 249 244;
+    --palette-line: 207 201 188;
+    --palette-stone: 122 116 106;
+  }
+
+  main > section,
+  .palette-light {
+    background-color: rgb(var(--palette-paper));
+    color: rgb(var(--palette-soft));
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-paper font-sans text-base text-ink-soft antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-bold text-ink;
+  }
+
+  ::selection {
+    @apply bg-crimson text-white;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-crimson-light/80 ring-offset-2 ring-offset-paper;
+  }
+}
+
+@layer components {
+  /* Wide container — fills large displays instead of stranding content in a
+     narrow column. Prose blocks keep their own tighter max-widths so line
+     length stays readable no matter how wide the viewport gets. */
+  .wrap {
+    @apply mx-auto w-full px-5 sm:px-6 lg:px-8 xl:px-10;
+  }
+
+  .section {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-[0.9375rem] font-medium transition-colors duration-200;
+  }
+
+  .btn-primary {
+    @apply btn bg-crimson text-white hover:bg-crimson-hover;
+  }
+
+  .btn-secondary {
+    @apply btn border border-paper-line bg-surface text-ink hover:border-stone hover:bg-paper-alt;
+  }
+
+  .card {
+    @apply rounded-xl border border-paper-line bg-surface shadow-card transition-shadow duration-200;
+  }
+
+  .eyebrow {
+    @apply text-[0.8125rem] font-bold uppercase tracking-wider text-crimson-light;
+  }
+
+  .field {
+    @apply w-full rounded-lg border border-paper-line bg-surface px-4 py-3 text-[0.9375rem] text-ink outline-none transition-colors duration-200 placeholder:text-ink-faint focus:border-crimson;
+  }
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.scroll-reveal[data-reveal='scale'] {
+  transform: translateY(24px) scale(0.97);
+}
+
+.scroll-reveal.is-visible,
+.scroll-reveal:focus-within {
+  opacity: 1;
+  transform: none;
+}
+
+.scroll-reveal:focus-within {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1;
+    transform: none !important;
+    transition: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
